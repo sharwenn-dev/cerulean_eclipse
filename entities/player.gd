@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 const MAX_SPEED: float = 300.0
 const JUMP_VELOCITY: float = -350.0
+const DOUBLE_JUMP_VELOCITY: float = -750.0
 const AERIAL_ACCELERATION: float = 1200.0
 const TURN_ACCELERATION: float = 3500.0
 const ACCELERATION: float = 2500.0
@@ -19,7 +20,7 @@ var coyote_time: float = 0.0
 var added_coyote_time: float = 0.09
 var jump_timer: float = 0.0
 var max_jump_hold: float = 0.2
-
+var has_double_jumped
 var is_jumping: bool = false
 var has_jumped: bool = false
 
@@ -79,6 +80,14 @@ func do_jump():
 	has_jumped = true
 	jump_timer = 0.0
 	jump_buffer = 0.0
+	
+func do_double_jump():
+	set_state(States.JUMPING)
+	velocity.y = DOUBLE_JUMP_VELOCITY
+	is_jumping = true
+	has_double_jumped = true
+	jump_timer = 0.0
+	jump_buffer = 0.0
 	# horizontal momentum is handled by air acceleration code (no instant spike)
 
 func _physics_process(delta: float) -> void:
@@ -114,8 +123,12 @@ func _physics_process(delta: float) -> void:
 		if velocity.y < 0:
 			# Only apply variable jump force WHILE ASCENDING
 			if is_jumping and Input.is_action_pressed("ui_accept") and jump_timer < max_jump_hold:
-				velocity.y += base_gravity * 0.3 * delta
-				jump_timer += delta
+				if has_double_jumped:
+					velocity.y += falling_gravity * delta  
+					jump_timer += delta
+				else:
+					velocity.y += base_gravity * 0.3 * delta
+					jump_timer += delta
 			else:
 				velocity.y += falling_gravity * delta
 				is_jumping = false
@@ -127,6 +140,7 @@ func _physics_process(delta: float) -> void:
 		# grounded
 		is_jumping = false
 		has_jumped = false
+		has_double_jumped = false
 		coyote_time = added_coyote_time
 
 	#Handle decreasing the jump buffer each frame
@@ -143,7 +157,9 @@ func _physics_process(delta: float) -> void:
 	if jump_buffer > 0 and (is_on_floor() or coyote_time > 0) and not has_jumped:
 		do_jump()
 		coyote_time = 0.0
-
+	elif jump_buffer > 0 and (not is_on_floor() or coyote_time > 0) and has_jumped and not has_double_jumped:
+		do_double_jump()
+		coyote_time = 0.0
 	# releasing jump kills variable jump instantly
 	if Input.is_action_just_released("ui_accept"):
 		jump_timer = max_jump_hold
