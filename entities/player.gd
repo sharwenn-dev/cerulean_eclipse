@@ -157,7 +157,7 @@ func _physics_process(delta: float) -> void:
 	if jump_buffer > 0 and (is_on_floor() or coyote_time > 0) and not has_jumped:
 		do_jump()
 		coyote_time = 0.0
-	elif jump_buffer > 0 and (not is_on_floor() or coyote_time > 0) and has_jumped and not has_double_jumped:
+	elif jump_buffer > 0 and (not is_on_floor() or coyote_time > 0) and not has_double_jumped:
 		do_double_jump()
 		coyote_time = 0.0
 	# releasing jump kills variable jump instantly
