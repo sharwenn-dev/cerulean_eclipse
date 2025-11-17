@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3 uid="uid://rswxc6a0a8t4"]
+
+[ext_resource type="PackedScene" uid="uid://bbvejlpo6idx6" path="res://entities/player.tscn" id="1_kyfjp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vcg8s"]
+size = Vector2(896.5, 37)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_kyfjp"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_amxg5"]
+
+[node name="TestWorld" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(3.75, 0)
+shape = SubResource("RectangleShape2D_vcg8s")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D/CollisionShape2D"]
+position = Vector2(-0.12498474, 0)
+scale = Vector2(896.75, 37.999996)
+texture = SubResource("PlaceholderTexture2D_kyfjp")
+
+[node name="Player" parent="StaticBody2D" instance=ExtResource("1_kyfjp")]
+position = Vector2(0, -41)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-440.75, 43)
+scale = Vector2(8.500019, 52.499996)
+texture = SubResource("PlaceholderTexture2D_amxg5")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(-262.75, 43)
+scale = Vector2(8.500019, 52.499996)
+texture = SubResource("PlaceholderTexture2D_amxg5")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(-84.75, 43)
+scale = Vector2(8.500019, 52.499996)
+texture = SubResource("PlaceholderTexture2D_amxg5")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+position = Vector2(93.25, 43)
+scale = Vector2(8.500019, 52.499996)
+texture = SubResource("PlaceholderTexture2D_amxg5")
+
+[node name="Sprite2D5" type="Sprite2D" parent="."]
+position = Vector2(271.25, 43)
+scale = Vector2(8.500019, 52.499996)
+texture = SubResource("PlaceholderTexture2D_amxg5")
+
+[node name="Sprite2D6" type="Sprite2D" parent="."]
+position = Vector2(449.25, 43)
+scale = Vector2(8.500019, 52.499996)
+texture = SubResource("PlaceholderTexture2D_amxg5")
