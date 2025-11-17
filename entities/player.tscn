@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bbvejlpo6idx6"]
+[gd_scene load_steps=5 format=3 uid="uid://bbvejlpo6idx6"]
 
 [ext_resource type="Script" uid="uid://bplvu181dh666" path="res://entities/player.gd" id="1_merdl"]
+[ext_resource type="Script" uid="uid://dkhdubccdvsx1" path="res://entities/player_camera.gd" id="2_b0kkn"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u3f3p"]
 
@@ -19,7 +20,8 @@ scale = Vector2(16, 28.000004)
 texture = SubResource("PlaceholderTexture2D_merdl")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
+zoom = Vector2(2.44, 2.44)
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
+script = ExtResource("2_b0kkn")

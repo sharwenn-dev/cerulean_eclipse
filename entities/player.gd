@@ -1,18 +1,20 @@
 extends CharacterBody2D
 
-
-const SPEED: float = 300.0
-const JUMP_VELOCITY: float = -300.0
-
+const MAX_SPEED: float = 300.0
+const JUMP_VELOCITY: float = -350.0
+const AERIAL_ACCELERATION: float = 1200.0
+const TURN_ACCELERATION: float = 3500.0
+const ACCELERATION: float = 2500.0
+const FRICTION: float = 5000.0  
 # YOU CAN FORMAT THESE VARIABLES HOWEVER YOU WANT, IDK HOW THE CLEAN WAY TO DO IT IS
 # apparently making your falling gravity more than base makes it feel more snappy. so this is how i did that. also has support if you want to add more for flying or aerial combat.
 @export var base_gravity: float = 1000.0
-@export var falling_gravity: float = 4000.0
+@export var falling_gravity: float = 3500.0
 var gravity: float = base_gravity
 
 # jump stuff
 var jump_buffer: float = 0.01
-var buffer_time: float = 0.5
+var buffer_time: float = 0.1
 var coyote_time: float = 0.0
 var added_coyote_time: float = 0.09
 var jump_timer: float = 0.0
@@ -77,15 +79,35 @@ func do_jump():
 	has_jumped = true
 	jump_timer = 0.0
 	jump_buffer = 0.0
+	# horizontal momentum is handled by air acceleration code (no instant spike)
 
 func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction: float = Input.get_axis("ui_left", "ui_right")
-	if direction != 0:
-		velocity.x = direction * SPEED
+	var target_speed: float = direction * MAX_SPEED
+	
+	# Determine which acceleration to use (ground vs air + turning)
+	var accel: float = ACCELERATION
+	if direction != 0 and sign(direction) != sign(velocity.x) and velocity.x != 0:
+		accel = TURN_ACCELERATION
+	
+	if is_on_floor():
+		# Ground movement: acceleration and friction
+		if direction != 0:
+			velocity.x = move_toward(velocity.x, target_speed, accel * delta)
+		else:
+			velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		# Air movement: use aerial acceleration, but respect stronger turn accel when changing direction
+		var air_accel: float = AERIAL_ACCELERATION
+		if direction != 0 and sign(direction) != sign(velocity.x) and velocity.x != 0:
+			# Turning in air uses TURN_ACCELERATION for responsiveness
+			air_accel = TURN_ACCELERATION
+		if direction != 0:
+			velocity.x = move_toward(velocity.x, target_speed, air_accel * delta)
+		else:
+			# If no input in air, damp horizontally a bit (slower than ground friction)
+			velocity.x = move_toward(velocity.x, 0, (AERIAL_ACCELERATION * 0.35) * delta)
 
 	# Add the gravity.
 	if not is_on_floor():
