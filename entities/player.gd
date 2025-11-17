@@ -10,7 +10,7 @@ const FRICTION: float = 5000.0
 # YOU CAN FORMAT THESE VARIABLES HOWEVER YOU WANT, IDK HOW THE CLEAN WAY TO DO IT IS
 # apparently making your falling gravity more than base makes it feel more snappy. so this is how i did that. also has support if you want to add more for flying or aerial combat.
 @export var base_gravity: float = 1000.0
-@export var falling_gravity: float = 3500.0
+@export var falling_gravity: float = 2000.0
 var gravity: float = base_gravity
 
 # jump stuff
