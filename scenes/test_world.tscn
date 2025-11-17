@@ -24,6 +24,7 @@ texture = SubResource("PlaceholderTexture2D_kyfjp")
 
 [node name="Player" parent="StaticBody2D" instance=ExtResource("1_kyfjp")]
 position = Vector2(0, -41)
+base_gravity = 1500.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-440.75, 43)

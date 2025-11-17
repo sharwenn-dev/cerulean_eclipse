@@ -20,3 +20,6 @@ texture = SubResource("PlaceholderTexture2D_merdl")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
