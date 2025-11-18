@@ -12,6 +12,8 @@ size = Vector2(896.5, 37)
 [node name="TestWorld" type="Node2D"]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-9135, 23)
+scale = Vector2(-21.562737, 0.23110183)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(3.75, 0)
@@ -21,9 +23,6 @@ shape = SubResource("RectangleShape2D_vcg8s")
 position = Vector2(-0.12498474, 0)
 scale = Vector2(896.75, 37.999996)
 texture = SubResource("PlaceholderTexture2D_kyfjp")
-
-[node name="Player" parent="StaticBody2D" instance=ExtResource("1_kyfjp")]
-position = Vector2(0, -41)
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
 position = Vector2(547.9999, -68)
@@ -184,3 +183,6 @@ texture = SubResource("PlaceholderTexture2D_amxg5")
 position = Vector2(449.25, 43)
 scale = Vector2(8.500019, 52.499996)
 texture = SubResource("PlaceholderTexture2D_amxg5")
+
+[node name="Player" parent="." instance=ExtResource("1_kyfjp")]
+position = Vector2(0, -41)

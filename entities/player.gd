@@ -1,15 +1,15 @@
 extends CharacterBody2D
-
-const MAX_SPEED: float = 300.0
-const HOVER_MAX_SPEED: float = 400.0
+const NORMAL_MAX_SPEED: float = 400.0
+var MAX_SPEED: float = 400.0
+var HOVER_MAX_SPEED: float = 500.0
 const JUMP_VELOCITY: float = -350.0
 const DOUBLE_JUMP_VELOCITY: float = -650.0
 const AERIAL_ACCELERATION: float = 1200.0
-const TURN_ACCELERATION: float = 3500.0
+const TURN_ACCELERATION: float = 3000.0
 const HOVER_ACCELERATION: float = 1200.0
-const ACCELERATION: float = 2500.0
+const ACCELERATION: float = 1200.0
 const HOVER_FRICTION: float = 3000.0  
-const FRICTION: float = 5000.0  
+const FRICTION: float = 2000.0  
 
 @export var base_gravity: float = 1000.0
 @export var falling_gravity: float = 2000.0
@@ -91,6 +91,9 @@ func _physics_process(delta: float) -> void:
 	# HOVER MOVEMENT OVERRIDE
 	if state == States.HOVERING:
 		if Input.is_action_just_pressed("ui_accept"):
+			if HOVER_MAX_SPEED > 500.0:
+				MAX_SPEED = HOVER_MAX_SPEED
+			print("OOUT")
 			set_state(States.FALLING)
 
 		var input_x = Input.get_axis("ui_left", "ui_right")
@@ -99,6 +102,9 @@ func _physics_process(delta: float) -> void:
 
 		var target_vel = Vector2.ZERO
 		if move_vec.length() > 0:
+			HOVER_MAX_SPEED += 5.0 * delta
+		
+	
 			move_vec = move_vec.normalized()
 			target_vel = move_vec * HOVER_MAX_SPEED
 
@@ -106,8 +112,10 @@ func _physics_process(delta: float) -> void:
 		var hover_friction = HOVER_FRICTION
 
 		if move_vec.length() > 0:
+		
 			velocity = velocity.move_toward(target_vel, hover_accel * delta)
 		else:
+			HOVER_MAX_SPEED = 600.0
 			velocity = velocity.move_toward(Vector2.ZERO, hover_friction * delta)
 
 		move_and_slide()
@@ -117,10 +125,23 @@ func _physics_process(delta: float) -> void:
 	var target_speed: float = direction * MAX_SPEED
 	
 	var accel: float = ACCELERATION
+	if velocity.x >= MAX_SPEED * 0.99 or -velocity.x >= MAX_SPEED * 0.99 :
+		if not is_on_floor():
+			MAX_SPEED += 7.0 * delta
+			print("air sped")
+			print(MAX_SPEED)
+		elif MAX_SPEED > NORMAL_MAX_SPEED:
+			MAX_SPEED -= 4.0 * delta
+			print("Ground speed")
+			print(MAX_SPEED)
+	elif MAX_SPEED > NORMAL_MAX_SPEED:
+			print(MAX_SPEED)
+			MAX_SPEED = NORMAL_MAX_SPEED
 	if direction != 0 and sign(direction) != sign(velocity.x) and velocity.x != 0:
 		accel = TURN_ACCELERATION
-	
+		MAX_SPEED = NORMAL_MAX_SPEED
 	if is_on_floor():
+		
 		if direction != 0:
 			velocity.x = move_toward(velocity.x, target_speed, accel * delta)
 		else:
