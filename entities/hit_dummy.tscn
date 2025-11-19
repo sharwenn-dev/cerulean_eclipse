@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1k34gusl2yx6"]
+
+[ext_resource type="Script" uid="uid://dhls6b2gh05rt" path="res://entities/hit_dummy.gd" id="1_bixhv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_w1nkf"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bixhv"]
+
+[node name="HitDummy" type="CharacterBody2D" groups=["Enemies"]]
+script = ExtResource("1_bixhv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_w1nkf")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+modulate = Color(0.94413567, 0.4548897, 0.58464, 1)
+position = Vector2(0, 4.7683716e-07)
+scale = Vector2(16, 28.000004)
+texture = SubResource("PlaceholderTexture2D_bixhv")

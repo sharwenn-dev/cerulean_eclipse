@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://rswxc6a0a8t4"]
+[gd_scene load_steps=6 format=3 uid="uid://rswxc6a0a8t4"]
 
 [ext_resource type="PackedScene" uid="uid://bbvejlpo6idx6" path="res://entities/player.tscn" id="1_kyfjp"]
+[ext_resource type="PackedScene" uid="uid://d1k34gusl2yx6" path="res://entities/hit_dummy.tscn" id="2_amxg5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vcg8s"]
 size = Vector2(896.5, 37)
@@ -186,3 +187,6 @@ texture = SubResource("PlaceholderTexture2D_amxg5")
 
 [node name="Player" parent="." instance=ExtResource("1_kyfjp")]
 position = Vector2(0, -41)
+
+[node name="HitDummy" parent="." instance=ExtResource("2_amxg5")]
+position = Vector2(-188, -24)

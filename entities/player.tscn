@@ -1,13 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://bbvejlpo6idx6"]
+[gd_scene load_steps=8 format=3 uid="uid://bbvejlpo6idx6"]
 
 [ext_resource type="Script" uid="uid://bplvu181dh666" path="res://entities/player.gd" id="1_merdl"]
 [ext_resource type="Script" uid="uid://dkhdubccdvsx1" path="res://entities/player_camera.gd" id="2_b0kkn"]
+[ext_resource type="Script" uid="uid://dupdght4tujt6" path="res://entities/sprite_2d.gd" id="3_e4p34"]
+[ext_resource type="PackedScene" uid="uid://dl6f3d2ia0dw6" path="res://menus/playerHUD.tscn" id="3_rfe5m"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u3f3p"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_merdl"]
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_b0kkn"]
+
+[node name="Player" type="CharacterBody2D" groups=["Players"]]
 script = ExtResource("1_merdl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -25,3 +29,12 @@ process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 script = ExtResource("2_b0kkn")
+
+[node name="PlayerHud" parent="Camera2D" instance=ExtResource("3_rfe5m")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0, 0, 0, 1)
+scale = Vector2(4, 4)
+texture = SubResource("PlaceholderTexture2D_b0kkn")
+script = ExtResource("3_e4p34")
