@@ -37,10 +37,10 @@ var momentum: Vector2 = Vector2.ZERO       # Stores horizontal momentum
 
 # Dash variables
 var is_dashing: bool = false
-var dash_time: float = 0.3
+var dash_time: float = 0.25
 var dash_timer: float = 0.0
 var dash_direction: Vector2 = Vector2.ZERO
-var dash_speed: float = 900.0
+var dash_speed: float = 800.0
 
 # HUD elements
 @onready var hud = $Camera2D/PlayerHud
