@@ -175,6 +175,7 @@ func do_double_jump():
 # Dash System
 # --------------------------
 func do_dash():
+	velocity = Vector2.ZERO
 	is_dashing = true
 	dash_timer = dash_time
 	dash_direction = (get_global_mouse_position() - global_position).normalized()
