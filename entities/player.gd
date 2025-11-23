@@ -37,10 +37,10 @@ var momentum: Vector2 = Vector2.ZERO       # Stores horizontal momentum
 
 # Dash variables
 var is_dashing: bool = false
-var dash_time: float = 0.25
+var dash_time: float = 0.2
 var dash_timer: float = 0.0
 var dash_direction: Vector2 = Vector2.ZERO
-var dash_speed: float = 800.0
+var dash_speed: float = 900.0
 
 # HUD elements
 @onready var hud = $Camera2D/PlayerHud
@@ -182,6 +182,12 @@ func do_dash():
 	gravity = 0
 	velocity = Vector2.ZERO
 
+
+# --------------------------
+# Spot Dodge System
+# --------------------------
+func do_spot_dodge():
+	print("yup yup")
 # --------------------------
 # HUD Updates
 # --------------------------
@@ -215,6 +221,8 @@ func _physics_process(delta: float) -> void:
 	# DASH INPUT
 	if Input.is_action_just_released("dash") and not is_dashing:
 		do_dash()
+	if Input.is_action_just_released("spot dodge") and not is_dashing:
+		do_spot_dodge()
 
 	## -----START COMBAT LOGIC-----
 	if combat_state == CombatState.HITSTUN:
