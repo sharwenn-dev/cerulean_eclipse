@@ -18,7 +18,7 @@ script = ExtResource("1_merdl")
 shape = SubResource("CapsuleShape2D_u3f3p")
 
 [node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
-modulate = Color(0.57645285, 0.58314925, 0.9961634, 1)
+modulate = Color(0.5764706, 0.58431375, 0.99607843, 1)
 position = Vector2(0, 4.7683716e-07)
 scale = Vector2(16, 28.000004)
 texture = SubResource("PlaceholderTexture2D_merdl")
@@ -32,7 +32,7 @@ script = ExtResource("2_b0kkn")
 
 [node name="PlayerHud" parent="Camera2D" instance=ExtResource("3_rfe5m")]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="marker" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(0, 0, 0, 1)
 scale = Vector2(4, 4)

@@ -42,10 +42,11 @@ var dash_timer: float = 0.0
 var dash_direction: Vector2 = Vector2.ZERO
 var dash_speed: float = 900.0
 
-# HUD elements
+# onready things, hud and children of player
 @onready var hud = $Camera2D/PlayerHud
 @onready var health_bar = $Camera2D/PlayerHud/health_bar
 @onready var hover_bar = $Camera2D/PlayerHud/hover_bar
+@onready var aim_marker = $marker
 
 # Player states
 enum States {IDLE, JUMPING, FALLING, ON_GROUND, HOVERING}
@@ -62,33 +63,61 @@ var data = {
 # --------------------------
 # Combat System
 # --------------------------
-enum CombatState { NEUTRAL, ATTACKING, HITSTUN, ENDLAG }
+enum CombatState { NEUTRAL, PREATTACK, ATTACKING, HITSTUN, ENDLAG }
 var combat_state: CombatState = CombatState.NEUTRAL
+
+# attack movement, might become per weapon in the future
+var attack_direction: Vector2 = Vector2.ZERO
+var attackdir_speed: float = 500.0
+
+# all things that will be decided per weapon and moved laterr
 var attack_index: int = 0
 var max_combo: int = 5
-var attack_timer: float = 0.0
+var attack_length: float = 1.7
 var attack_reset_time: float = 2
-var attack_length: float = 1.5
-var endlag_timer: float = 0.0
 var endlag_time: float = 1.0
-var cooldown_timer: float = 0.0
 var cooldown_time: float = 4.0
+var windup_time: float = 0.3
+
+var attack_timer: float = 0.0
+var windup_timer: float = 0.0
+var endlag_timer: float = 0.0
+var cooldown_timer: float = 0.0
 var hitstun_timer: float = 0.0
 var just_attacked: bool = false
 var can_attack: bool = true
 
-func attack():
+func preattack():
 	if combat_state != CombatState.NEUTRAL or not can_attack:
 		return
+	$CollisionShape2D/Sprite2D.modulate = Color.DARK_ORANGE
+	combat_state = CombatState.PREATTACK
+	attack_index += 1
+	windup_timer = windup_time
+	attack_timer = attack_reset_time
+	just_attacked = true
+	print("Attack ", attack_index)
+	
+
+func attack():
 	combat_state = CombatState.ATTACKING
+	$CollisionShape2D/Sprite2D.modulate = Color.INDIAN_RED
 	if attack_index < max_combo:
-		attack_index += 1
 		attack_timer = attack_reset_time
-		print("Attack ", attack_index)
 		_activate_hitbox(attack_index)
-		just_attacked = true
-		if attack_index >= max_combo:
-			_start_endlag()
+	if attack_index >= max_combo:
+		_activate_hitbox(attack_index) 
+		moved = false
+		_start_endlag()
+
+# unused for now because feels weird, have to think more on how exactly to implement
+var moved = false
+func attack_move():
+	if moved == false:
+		attack_direction = (aim_marker.global_position - global_position).normalized()
+		gravity = 0
+		velocity = attack_direction * attackdir_speed
+		moved = true
 
 func _start_endlag():
 	endlag_timer = endlag_time
@@ -109,6 +138,81 @@ func apply_hitstun(dur: float):
 
 func _activate_hitbox(index: int):
 	print("hitbox active for attack ", index)
+
+# helper to update combat timers and decide whether to skip normal movement for this frame
+# returns true if movement/physics for this frame should be skipped 
+func _update_combat(delta: float) -> bool:
+	# attack input both here and physics process as backup but preattack makes sure it only happens once
+	if Input.is_action_just_pressed("attack"):
+		preattack()
+
+	# PREATTACK (windup) handling
+	if combat_state == CombatState.PREATTACK:
+		windup_timer -= delta
+		if windup_timer <= 0.0:
+			attack()
+
+	# ATTACKING and some combo handling
+	if combat_state == CombatState.ATTACKING or just_attacked:
+		attack_timer -= delta
+		aim_marker.can_move = false
+		
+		# when attack_timer is below attack_length it means attack is over, go to NEUTRAL
+		if attack_timer <= attack_length:
+			if combat_state == CombatState.ATTACKING:
+				combat_state = CombatState.NEUTRAL
+				# moved = true
+				# moved = false
+				print("neutral")
+				# if state == States.HOVERING:
+					# gravity = hover_gravity
+		# full reset when timer hits 0
+		if attack_timer <= 0.0:
+			just_attacked = false
+			# gravity = base_gravity
+			reset_combo()
+
+	# HITSTUN handling
+	if combat_state == CombatState.HITSTUN:
+		hitstun_timer -= delta
+		velocity = Vector2.ZERO
+		# when hitstun finishes go to NEUTRAL
+		if hitstun_timer <= 0.0:
+			combat_state = CombatState.NEUTRAL
+		# process physics still even if no movement
+		move_and_slide()
+		return true
+
+	# ENDLAG prevents movement and starts a separate m1 combo cooldown
+	if combat_state == CombatState.ENDLAG:
+		endlag_timer -= delta
+		velocity = Vector2.ZERO
+		can_attack = false
+		move_and_slide()
+		if endlag_timer <= 0.0:
+			combat_state = CombatState.NEUTRAL
+			# still no attacking until cooldown finishes
+			can_attack = false
+			reset_combo()
+			cooldown_timer = cooldown_time
+			return true
+		return true
+
+	# cooldown handling when not in endlag/hitstun
+	if cooldown_timer > 0.0:
+		cooldown_timer -= delta
+	else:
+		if can_attack == false:
+			# cooldown finished
+			can_attack = true
+
+# neutral shenanigans
+	if combat_state == CombatState.NEUTRAL:
+		aim_marker.can_move = true
+		$CollisionShape2D/Sprite2D.modulate = Color.BLUE
+
+	return false
+
 
 # --------------------------
 # State Handlers
@@ -182,7 +286,6 @@ func do_dash():
 	gravity = 0
 	velocity = Vector2.ZERO
 
-
 # --------------------------
 # Spot Dodge System
 # --------------------------
@@ -208,6 +311,13 @@ func _process(_delta: float) -> void:
 # Physics & Movement
 # --------------------------
 func _physics_process(delta: float) -> void:
+	# update combat timers and states first and check if skipping movement
+	# basically anything put above here will persist in endlag/stun 
+	# anything below will not run while in endlag/stun
+	var skip_movement := _update_combat(delta)
+	if skip_movement:
+		return
+
 	# Get player input
 	var input_x = Input.get_axis("ui_left", "ui_right")
 	var input_y = Input.get_axis("ui_up", "ui_down")
@@ -224,48 +334,17 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_released("spot dodge") and not is_dashing:
 		do_spot_dodge()
 
-	## -----START COMBAT LOGIC-----
-	if combat_state == CombatState.HITSTUN:
-		hitstun_timer -= delta
-		if hitstun_timer <= 0:
-			combat_state = CombatState.NEUTRAL
-		move_and_slide()
-		return
+	# attack input is also in helper function
+	# but keep this check here still in case of timing difference
+	if Input.is_action_just_pressed("attack"):
+		preattack()
+	# all other combat logic moved to helper
 
-	if combat_state == CombatState.ENDLAG:
-		endlag_timer -= delta
-		velocity = Vector2.ZERO
-		if endlag_timer <= 0.0:
-			combat_state = CombatState.NEUTRAL
-			can_attack = false
-			reset_combo()
-			cooldown_timer = cooldown_time
-			return
-		move_and_slide()
-		return
-
-	if cooldown_timer > 0.0:
-		cooldown_timer -= delta
-	else:
-		if can_attack == false:
-			print("REFRESHED!")
-			can_attack = true
-
-	if combat_state == CombatState.ATTACKING or just_attacked:
-		attack_timer -= delta
-		if attack_timer <= attack_length:
-			combat_state = CombatState.NEUTRAL
-		if attack_timer <= 0:
-			just_attacked = false
-			reset_combo()
-	## -----END COMBAT THINGS-----
-
-# GLOBAL HOVER CANCEL ON GROUND
+	# GLOBAL HOVER CANCEL ON GROUND
 	if is_on_floor() and state == States.HOVERING:
 		set_state(States.ON_GROUND)
 		gravity = base_gravity
 		hovering = false
-
 
 	# DASHING LOGIC
 	if is_dashing:
@@ -284,7 +363,7 @@ func _physics_process(delta: float) -> void:
 
 	# HOVERING LOGIC
 	if state == States.HOVERING:
-		data.hover -= 30 * delta
+		data.hover -= 10 * delta
 		if Input.is_action_just_pressed("ui_accept") or data.hover <= 0:
 			set_state(States.FALLING)
 			gravity = falling_gravity
@@ -305,6 +384,7 @@ func _physics_process(delta: float) -> void:
 			momentum = velocity
 		move_and_slide()
 		return
+
 	# Jump buffer
 	if Input.is_action_just_pressed("ui_accept"):
 		jump_buffer = buffer_time
