@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://coah5siyndfow"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3bcyn"]
+
+[sub_resource type="Gradient" id="Gradient_ooere"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_uogr1"]
+gradient = SubResource("Gradient_ooere")
+width = 1
+
+[sub_resource type="Gradient" id="Gradient_mxici"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="CPUParticles2D" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_3bcyn")
+amount = 80
+texture = SubResource("GradientTexture1D_uogr1")
+lifetime = 0.4
+lifetime_randomness = 0.1
+fixed_fps = 30
+emission_shape = 3
+emission_rect_extents = Vector2(8, 1)
+direction = Vector2(0, -0.2)
+spread = 20.68
+gravity = Vector2(0, 0.1)
+initial_velocity_max = 40.0
+damping_max = 4.0
+color_ramp = SubResource("Gradient_mxici")

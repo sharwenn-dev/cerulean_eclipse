@@ -36,18 +36,23 @@ var hovering: bool = false
 var momentum: Vector2 = Vector2.ZERO       # Stores horizontal momentum
 
 # Dash variables
+var auto_hover = false
 var is_dashing: bool = false
 var dash_time: float = 0.2
 var dash_timer: float = 0.0
 var dash_direction: Vector2 = Vector2.ZERO
 var dash_speed: float = 900.0
 
+
 # onready things, hud and children of player
 @onready var hud = $Camera2D/PlayerHud
 @onready var health_bar = $Camera2D/PlayerHud/health_bar
 @onready var hover_bar = $Camera2D/PlayerHud/hover_bar
 @onready var aim_marker = $marker
+@onready var movement_particle_preload = preload("res://scenes/movement_particle.tscn")
 
+
+#@onready var movement_particle = $CPUParticles2D
 # Player states
 enum States {IDLE, JUMPING, FALLING, ON_GROUND, HOVERING}
 var state: States = States.IDLE
@@ -75,7 +80,7 @@ var attack_index: int = 0
 var max_combo: int = 5
 var attack_length: float = 1.7
 var attack_reset_time: float = 2
-var endlag_time: float = 1.0
+var endlag_time: float = 0.5
 var cooldown_time: float = 4.0
 var windup_time: float = 0.3
 
@@ -103,9 +108,13 @@ func attack():
 	combat_state = CombatState.ATTACKING
 	$CollisionShape2D/Sprite2D.modulate = Color.INDIAN_RED
 	if attack_index < max_combo:
+		do_cdash(true)
 		attack_timer = attack_reset_time
 		_activate_hitbox(attack_index)
 	if attack_index >= max_combo:
+		set_state(States.FALLING)
+		gravity = falling_gravity
+		do_cdash(false)
 		_activate_hitbox(attack_index) 
 		moved = false
 		_start_endlag()
@@ -150,6 +159,7 @@ func _update_combat(delta: float) -> bool:
 	if combat_state == CombatState.PREATTACK:
 		windup_timer -= delta
 		if windup_timer <= 0.0:
+			
 			attack()
 
 	# ATTACKING and some combo handling
@@ -278,19 +288,73 @@ func do_double_jump():
 # --------------------------
 # Dash System
 # --------------------------
+
+func get_move_direction() -> Vector2:
+	var dir = Vector2.ZERO
+
+	if Input.is_action_pressed("ui_right"):
+		dir.x += 1
+	if Input.is_action_pressed("ui_left"):
+		dir.x -= 1
+	if Input.is_action_pressed("ui_down"):
+		dir.y += 1
+	if Input.is_action_pressed("ui_up"):
+		dir.y -= 1
+
+	return dir.normalized()
+
+
 func do_dash():
+	auto_hover = true
 	velocity = Vector2.ZERO
 	is_dashing = true
+	dash_speed = 900.0
 	dash_timer = dash_time
 	dash_direction = (get_global_mouse_position() - global_position).normalized()
 	gravity = 0
 	velocity = Vector2.ZERO
 
-# --------------------------
-# Spot Dodge System
-# --------------------------
+func do_cdash(ahover):
+	if is_dashing:
+		return
+	velocity = Vector2.ZERO
+	auto_hover = ahover
+	is_dashing = true
+	dash_speed = 500.0
+	dash_timer = dash_time
+	dash_direction = (get_global_mouse_position() - global_position).normalized()
+
+	var timer = get_tree().create_timer(dash_time)
+	timer.timeout.connect(func():
+		if not is_on_floor() and not hovering and data.hover > 10 and auto_hover == true:
+			set_state(States.HOVERING)
+			jump_buffer = 0
+			is_jumping = false
+		is_dashing = false
+	)
+
 func do_spot_dodge():
-	print("yup yup")
+	if is_dashing:
+		return
+	auto_hover = false
+	# stop all momentum first
+	velocity = Vector2.ZERO
+	dash_speed = 700.0
+	dash_timer = dash_time
+	# get movement direction
+	dash_direction = get_move_direction()
+	if dash_direction == Vector2.ZERO:
+		return
+	# fallback if not moving
+	if dash_direction == Vector2.ZERO:
+		dash_direction = Vector2.RIGHT  # or use facing direction
+
+	is_dashing = true
+
+	var timer = get_tree().create_timer(dash_time)
+	timer.timeout.connect(func():
+		is_dashing = false
+	)
 # --------------------------
 # HUD Updates
 # --------------------------
@@ -355,14 +419,14 @@ func _physics_process(delta: float) -> void:
 		if dash_timer <= 0:
 			is_dashing = false
 			gravity = base_gravity
-			if not is_on_floor() and not hovering and data.hover > 10:
+			if not is_on_floor() and not hovering and data.hover > 10 and auto_hover == true:
 				set_state(States.HOVERING)
 				jump_buffer = 0
 				is_jumping = false
 		return
 
 	# HOVERING LOGIC
-	if state == States.HOVERING:
+	if state == States.HOVERING and is_dashing == false:
 		data.hover -= 10 * delta
 		if Input.is_action_just_pressed("ui_accept") or data.hover <= 0:
 			set_state(States.FALLING)
@@ -403,10 +467,19 @@ func _physics_process(delta: float) -> void:
 			data.hover += 15 * delta
 			data.hover = min(data.hover, 100)
 		if input_x != 0:
+			if not has_node("CPUParticles2D"):
+				var instance = movement_particle_preload.instantiate()
+				add_child(instance)
+				$CPUParticles2D.position = Vector2(0.0,14.0)
+			$CPUParticles2D.visible = true
 			velocity.x = move_toward(velocity.x, target_speed, accel * delta)
 		else:
+			if has_node("CPUParticles2D"):
+				$CPUParticles2D.queue_free()
 			velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
 	else:
+		if has_node("CPUParticles2D"):
+				$CPUParticles2D.queue_free()
 		var air_accel = AERIAL_ACCELERATION
 		if input_x != 0 and sign(input_x) != sign(velocity.x) and velocity.x != 0:
 			air_accel = TURN_ACCELERATION
