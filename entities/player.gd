@@ -378,6 +378,11 @@ func _physics_process(delta: float) -> void:
 	# update combat timers and states first and check if skipping movement
 	# basically anything put above here will persist in endlag/stun 
 	# anything below will not run while in endlag/stun
+	var mouse_pos = get_global_mouse_position()
+	#Camera offset
+	var center = global_position
+	$Camera2D.global_position = center.lerp(mouse_pos, 0.2)
+	
 	var skip_movement := _update_combat(delta)
 	if skip_movement:
 		return
