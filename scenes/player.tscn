@@ -1,0 +1,300 @@
+[gd_scene format=3 uid="uid://btahiywox6ody"]
+
+[ext_resource type="Script" uid="uid://blo0fks6b7nfn" path="res://player.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://deapq8e0jy2u1" path="res://scripts/player/player_animation_controller.gd" id="2_dqkch"]
+[ext_resource type="Texture2D" uid="uid://dv7coud2h5rmk" path="res://assets/test_body.png" id="2_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://b63m4f86srf1b" path="res://assets/test_head.png" id="3_fjrip"]
+[ext_resource type="Script" uid="uid://brqen7u465lqd" path="res://scripts/player/states/state_machine.gd" id="3_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://uy0ngl7wtmo1" path="res://assets/testwalk_body.png" id="4_smehm"]
+[ext_resource type="Script" uid="uid://clbgwi4hcyomo" path="res://scripts/player/states/idle_state.gd" id="4_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://dxkklyljc3ck2" path="res://assets/testwalk_head.png" id="5_ur7pv"]
+[ext_resource type="Texture2D" uid="uid://j3i0tspmgquv" path="res://assets/reticle_thing.png" id="7_fjrip"]
+[ext_resource type="Script" uid="uid://dcofi7sscsfqo" path="res://scripts/player/states/move_state.gd" id="9_y4r1p"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1g0qk"]
+radius = 17.0
+height = 58.0
+
+[sub_resource type="Animation" id="Animation_fjrip"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Head:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_tuyoq")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Head:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_fjrip")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Body:hframes")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Head:hframes")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_tuyoq"]
+resource_name = "idle"
+length = 3.0000000000000004
+loop_mode = 1
+step = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Head:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_tuyoq")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Head:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_fjrip")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Body:hframes")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Head:hframes")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_smehm"]
+resource_name = "walk"
+length = 0.9
+loop_mode = 1
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_smehm")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45000002, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Head:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_ur7pv")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Head:hframes")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Head:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45000002, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fjrip"]
+_data = {
+&"RESET": SubResource("Animation_fjrip"),
+&"idle": SubResource("Animation_tuyoq"),
+&"walk": SubResource("Animation_smehm")
+}
+
+[node name="Player" type="CharacterBody2D" unique_id=161248642]
+script = ExtResource("1_3vyb7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1121891384]
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_1g0qk")
+debug_color = Color(0, 0.6, 0.69803923, 0.654902)
+
+[node name="Body" type="Sprite2D" parent="." unique_id=1869085751]
+texture = ExtResource("2_tuyoq")
+hframes = 2
+
+[node name="Head" type="Sprite2D" parent="." unique_id=1211764680]
+position = Vector2(0, -15)
+texture = ExtResource("3_fjrip")
+offset = Vector2(0, 15)
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1679118782]
+libraries/ = SubResource("AnimationLibrary_fjrip")
+
+[node name="AnimationController" type="Node" parent="." unique_id=528839604 node_paths=PackedStringArray("animation_player")]
+script = ExtResource("2_dqkch")
+animation_player = NodePath("../AnimationPlayer")
+
+[node name="StateMachine" type="Node" parent="." unique_id=460251227 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_qlg0r")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://brqen7u465lqd"
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=2026680577]
+script = ExtResource("4_tuyoq")
+
+[node name="Walk" type="Node" parent="StateMachine" unique_id=792215615]
+script = ExtResource("9_y4r1p")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=982390416]
+zoom = Vector2(1.5, 1.5)
+
+[node name="AimHandler" type="Node2D" parent="." unique_id=1041828155]
+position = Vector2(0, 3.5)
+
+[node name="Reticle" type="Sprite2D" parent="AimHandler" unique_id=1123246539]
+position = Vector2(9, 0)
+texture = ExtResource("7_fjrip")
