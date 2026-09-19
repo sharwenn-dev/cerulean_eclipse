@@ -14,9 +14,14 @@ func play_animation(anim_name: String) -> void:
 
 func set_facing_direction() -> void:
 	if owner.has_node("Body"):
-		var direction := Input.get_axis("left", "right")
-		if direction != 0:
-			body_sprite.flip_h = direction < 0
+	#	var direction := Input.get_axis("left", "right")
+	#	if direction != 0:
+	#		body_sprite.flip_h = direction < 0
+		var mouse_pos = owner.get_global_mouse_position()
+		if mouse_pos.x > owner.position.x:
+			body_sprite.flip_h = false
+		elif mouse_pos.x < owner.position.x:
+			body_sprite.flip_h = true
 
 func set_head_rotation() -> void:
 	var mouse_pos = owner.get_global_mouse_position()
