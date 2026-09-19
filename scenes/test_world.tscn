@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://rswxc6a0a8t4"]
 
 [ext_resource type="PackedScene" uid="uid://btahiywox6ody" path="res://scenes/player.tscn" id="1_kyfjp"]
+[ext_resource type="Script" uid="uid://b4q70moexos8m" path="res://game_state_manager.gd" id="2_amxg5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vcg8s"]
 size = Vector2(896.5, 37)
@@ -194,5 +195,8 @@ texture = SubResource("PlaceholderTexture2D_amxg5")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1558925996]
 environment = SubResource("Environment_amxg5")
 
-[node name="Player2" parent="." unique_id=161248642 instance=ExtResource("1_kyfjp")]
+[node name="Player2" parent="." unique_id=161248642 groups=["players"] instance=ExtResource("1_kyfjp")]
 position = Vector2(-204, -57)
+
+[node name="GameStateManager" type="Node" parent="." unique_id=425132527]
+script = ExtResource("2_amxg5")

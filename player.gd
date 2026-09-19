@@ -1,22 +1,31 @@
 class_name Player
 extends CharacterBody2D
-
+signal defeat
 @export var stats: PlayerStats
 @onready var state_machine: StateMachine = $StateMachine
 @onready var animation_controller: PlayerAnimationController = $AnimationController
-
+var dead = false
 func _ready() -> void:
 	if not stats:
 		stats = PlayerStats.new()
-		
 	state_machine.init(self, stats)
-
+	
+func take_damage(damage):
+	stats.health -= damage
+	if stats.health <= 0 and dead == false:
+		dead = true
+		stats.health = 0
+		defeat.emit(name,Time.get_ticks_msec()) #emit(nameofplayer,timeofdeath)
+		
+	
 func _process(delta: float) -> void:
 	state_machine.update(delta)
-
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("damageself"):
+		take_damage(50)
+		
 func _physics_process(delta: float) -> void:
 	state_machine.physics_update(delta)
-	
 	var direction = Input.get_axis("left", "right")
 	velocity.x = direction * stats.base_move_speed
 

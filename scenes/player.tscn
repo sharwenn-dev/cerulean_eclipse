@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://btahiywox6ody"]
 
 [ext_resource type="Script" uid="uid://blo0fks6b7nfn" path="res://player.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://vi7a2plf4ivn" path="res://scripts/player/player_stats.gd" id="2_3v2ag"]
 [ext_resource type="Script" uid="uid://deapq8e0jy2u1" path="res://scripts/player/player_animation_controller.gd" id="2_dqkch"]
 [ext_resource type="Texture2D" uid="uid://brogf6vpqhqrx" path="res://assets/gunguysprites/gunguyidle.png" id="3_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://b63m4f86srf1b" path="res://assets/test_head.png" id="3_fjrip"]
@@ -12,12 +13,16 @@
 [ext_resource type="Texture2D" uid="uid://j3i0tspmgquv" path="res://assets/reticle_thing.png" id="7_fjrip"]
 [ext_resource type="Script" uid="uid://dcofi7sscsfqo" path="res://scripts/player/states/move_state.gd" id="9_y4r1p"]
 
+[sub_resource type="Resource" id="Resource_v1tok"]
+script = ExtResource("2_3v2ag")
+metadata/_custom_type_script = "uid://vi7a2plf4ivn"
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1g0qk"]
 radius = 17.0
 height = 58.0
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fjrip"]
-load_path = "res://.godot/imported/test_body.png-787ec6a53aafaf192028a87265a8dde1.ctex"
+load_path = "res://.godot/imported/gunguyidle.png-0a6b110c857a1516cd8fe42bf699b7bf.ctex"
 
 [sub_resource type="Animation" id="Animation_fjrip"]
 length = 0.001
@@ -427,6 +432,7 @@ _data = {
 
 [node name="Player" type="CharacterBody2D" unique_id=161248642]
 script = ExtResource("1_3vyb7")
+stats = SubResource("Resource_v1tok")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1121891384]
 position = Vector2(0, 4)
