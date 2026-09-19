@@ -2,18 +2,22 @@
 
 [ext_resource type="Script" uid="uid://blo0fks6b7nfn" path="res://player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://deapq8e0jy2u1" path="res://scripts/player/player_animation_controller.gd" id="2_dqkch"]
-[ext_resource type="Texture2D" uid="uid://dv7coud2h5rmk" path="res://assets/test_body.png" id="2_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://brogf6vpqhqrx" path="res://assets/gunguysprites/gunguyidle.png" id="3_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://b63m4f86srf1b" path="res://assets/test_head.png" id="3_fjrip"]
 [ext_resource type="Script" uid="uid://brqen7u465lqd" path="res://scripts/player/states/state_machine.gd" id="3_qlg0r"]
-[ext_resource type="Texture2D" uid="uid://uy0ngl7wtmo1" path="res://assets/testwalk_body.png" id="4_smehm"]
+[ext_resource type="Texture2D" uid="uid://lhjlgwus8pvc" path="res://assets/gunguysprites/gunguyidlehead.png" id="4_3v2ag"]
 [ext_resource type="Script" uid="uid://clbgwi4hcyomo" path="res://scripts/player/states/idle_state.gd" id="4_tuyoq"]
-[ext_resource type="Texture2D" uid="uid://dxkklyljc3ck2" path="res://assets/testwalk_head.png" id="5_ur7pv"]
+[ext_resource type="Texture2D" uid="uid://d3b53lo6s5cq0" path="res://assets/gunguysprites/gunguywalk.png" id="5_jej6c"]
+[ext_resource type="Texture2D" uid="uid://vmgjb75ksg3a" path="res://assets/gunguysprites/gunguywalkhead.png" id="6_f1ej7"]
 [ext_resource type="Texture2D" uid="uid://j3i0tspmgquv" path="res://assets/reticle_thing.png" id="7_fjrip"]
 [ext_resource type="Script" uid="uid://dcofi7sscsfqo" path="res://scripts/player/states/move_state.gd" id="9_y4r1p"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1g0qk"]
 radius = 17.0
 height = 58.0
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fjrip"]
+load_path = "res://.godot/imported/test_body.png-787ec6a53aafaf192028a87265a8dde1.ctex"
 
 [sub_resource type="Animation" id="Animation_fjrip"]
 length = 0.001
@@ -51,7 +55,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_tuyoq")]
+"values": [SubResource("CompressedTexture2D_fjrip")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -89,12 +93,72 @@ tracks/5/keys = {
 "update": 1,
 "values": [2]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Body:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-11, -12)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Head:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-2.999999, -19)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Body:offset")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-19.39, 0)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Head:offset")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-3.875, 17.495)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Body:texture:load_path")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["res://.godot/imported/gunguyidle.png-0a6b110c857a1516cd8fe42bf699b7bf.ctex"]
+}
 
-[sub_resource type="Animation" id="Animation_tuyoq"]
+[sub_resource type="Animation" id="Animation_smehm"]
 resource_name = "idle"
-length = 3.0000000000000004
+length = 0.6
 loop_mode = 1
-step = 1.5
+step = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -102,7 +166,7 @@ tracks/0/path = NodePath("Body:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.5),
+"times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [0, 1]
@@ -114,7 +178,7 @@ tracks/1/path = NodePath("Head:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.5),
+"times": PackedFloat32Array(0.08689544, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [0, 1]
@@ -129,31 +193,31 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_tuyoq")]
+"values": [ExtResource("3_d2wvv")]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Head:texture")
+tracks/3/path = NodePath("Body:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("3_fjrip")]
+"values": [2]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Body:hframes")
+tracks/4/path = NodePath("Body:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [2]
+"update": 0,
+"values": [Vector2(-1.0000002, -5)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -167,90 +231,198 @@ tracks/5/keys = {
 "update": 1,
 "values": [2]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Head:texture")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_3v2ag")]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Head:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(9.536743e-07, -18)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Body:offset")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(5.2649994, -13.615)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Head:offset")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(4.77, 17.43)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Body:texture:load_path")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["res://.godot/imported/gunguyidle.png-0a6b110c857a1516cd8fe42bf699b7bf.ctex"]
+}
 
-[sub_resource type="Animation" id="Animation_smehm"]
+[sub_resource type="Animation" id="Animation_ur7pv"]
 resource_name = "walk"
-length = 0.9
+length = 0.605
 loop_mode = 1
-step = 0.15
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Body:texture")
+tracks/0/path = NodePath("Body:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("4_smehm")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Body:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [6]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Body:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.45000002, 0.6, 0.75),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Head:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.49999997),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_jej6c")]
+}
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("Head:texture")
+tracks/3/path = NodePath("Body:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("5_ur7pv")]
+"values": [6]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Head:hframes")
+tracks/4/path = NodePath("Body:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [6]
+"update": 0,
+"values": [Vector2(1, -2)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Head:frame")
+tracks/5/path = NodePath("Head:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.45000002, 0.6, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, -19)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Head:hframes")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5]
+"values": [6]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Head:texture")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_f1ej7")]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Head:offset")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-3.675, 17.84)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Body:offset")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-3.02, -20.865)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fjrip"]
 _data = {
 &"RESET": SubResource("Animation_fjrip"),
-&"idle": SubResource("Animation_tuyoq"),
-&"walk": SubResource("Animation_smehm")
+&"idle": SubResource("Animation_smehm"),
+&"walk": SubResource("Animation_ur7pv")
 }
 
 [node name="Player" type="CharacterBody2D" unique_id=161248642]
@@ -262,13 +434,17 @@ shape = SubResource("CapsuleShape2D_1g0qk")
 debug_color = Color(0, 0.6, 0.69803923, 0.654902)
 
 [node name="Body" type="Sprite2D" parent="." unique_id=1869085751]
-texture = ExtResource("2_tuyoq")
+position = Vector2(-11, -12)
+scale = Vector2(0.4839844, 0.50000006)
+texture = SubResource("CompressedTexture2D_fjrip")
+offset = Vector2(-19.39, 0)
 hframes = 2
 
 [node name="Head" type="Sprite2D" parent="." unique_id=1211764680]
-position = Vector2(0, -15)
+position = Vector2(-2.999999, -19)
+scale = Vector2(0.484375, 0.5214892)
 texture = ExtResource("3_fjrip")
-offset = Vector2(0, 15)
+offset = Vector2(-3.875, 17.495)
 hframes = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1679118782]

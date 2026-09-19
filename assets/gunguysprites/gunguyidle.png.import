@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dv7coud2h5rmk"
-path="res://.godot/imported/test_body.png-787ec6a53aafaf192028a87265a8dde1.ctex"
+uid="uid://brogf6vpqhqrx"
+path="res://.godot/imported/gunguyidle.png-0a6b110c857a1516cd8fe42bf699b7bf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/test_body.png"
-dest_files=["res://.godot/imported/test_body.png-787ec6a53aafaf192028a87265a8dde1.ctex"]
+source_file="res://assets/gunguysprites/gunguyidle.png"
+dest_files=["res://.godot/imported/gunguyidle.png-0a6b110c857a1516cd8fe42bf699b7bf.ctex"]
 
 [params]
 
