@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Cerulean Eclipse"
-run/main_scene="uid://rswxc6a0a8t4"
+run/main_scene="uid://uv543mj4mehb"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -23,6 +23,14 @@ config/icon="res://icon.svg"
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/GDQuest_GDScript_formatter/plugin.cfg")
+
+[global_group]
+
+is_player=""
 
 [input]
 

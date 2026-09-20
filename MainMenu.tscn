@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://b3rtypa34hr1f"]
+
+[ext_resource type="Script" uid="uid://b0hmbg85yctbn" path="res://mainmenu.gd" id="1_eiy7p"]
+[ext_resource type="Theme" uid="uid://b3kq74llqlv3x" path="res://assets/ui/MinimalUI.tres" id="2_h7a2f"]
+
+[node name="MainMenu" type="Control" unique_id=1355443677]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 87.0
+offset_top = 34.0
+offset_right = -521.0
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eiy7p")
+
+[node name="BoxContainer" type="BoxContainer" parent="." unique_id=994668706]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 0
+offset_left = 227.0
+offset_top = 35.0
+offset_right = 769.0
+offset_bottom = 608.0
+theme = ExtResource("2_h7a2f")
+theme_override_constants/separation = 60
+vertical = true
+
+[node name="StartMatch" type="Button" parent="BoxContainer" unique_id=756297617]
+layout_mode = 2
+theme = ExtResource("2_h7a2f")
+text = "Start Match"
+
+[node name="CloseGame" type="Button" parent="BoxContainer" unique_id=1193570787]
+layout_mode = 2
+theme = ExtResource("2_h7a2f")
+text = "Close Game"
+
+[node name="Tree" type="Tree" parent="." unique_id=160167701]
+layout_mode = 0
+offset_left = 143.0
+offset_top = 232.0
+offset_right = 844.0
+offset_bottom = 601.0
+column_titles_visible = true
+
+[connection signal="pressed" from="BoxContainer/StartMatch" to="." method="_on_start_match_pressed"]
+[connection signal="pressed" from="BoxContainer/CloseGame" to="." method="_on_close_game_pressed"]

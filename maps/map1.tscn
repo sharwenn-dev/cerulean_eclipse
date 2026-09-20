@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://dsalgtanwrh1c"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ac6k"]
+size = Vector2(3205.5, 20)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_lfhdc"]
+specular_color = Color(0, 0, 0, 1)
+
+[node name="map1" type="Node2D" unique_id=480315478]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1324818799]
+position = Vector2(-115.869446, 95.25432)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1058507053]
+position = Vector2(783.11945, 111.74568)
+shape = SubResource("RectangleShape2D_5ac6k")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D/CollisionShape2D" unique_id=1446284152]
+position = Vector2(-2.750183, -1.6271595)
+scale = Vector2(3179.0002, 17.254313)
+texture = SubResource("CanvasTexture_lfhdc")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=847073879]
+position = Vector2(848.02875, 231.08401)
+rotation = 3.1415927
+scale = Vector2(33.32758, -52.128643)
+texture = SubResource("CanvasTexture_lfhdc")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=600380156]
+position = Vector2(1085, 238)
+rotation = 3.1415927
+scale = Vector2(33.32758, -52.128643)
+texture = SubResource("CanvasTexture_lfhdc")
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=1595295125]
+position = Vector2(463.00018, 224.99998)
+rotation = 3.1415927
+scale = Vector2(33.32758, -52.128643)
+texture = SubResource("CanvasTexture_lfhdc")
+
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=2015290170]
+position = Vector2(186.00003, 232.99998)
+rotation = 3.1415927
+scale = Vector2(33.32758, -52.128643)
+texture = SubResource("CanvasTexture_lfhdc")
+
+[node name="Sprite2D5" type="Sprite2D" parent="." unique_id=1010981073]
+position = Vector2(1493.9999, 235.99998)
+rotation = 3.1415927
+scale = Vector2(33.32758, -52.128643)
+texture = SubResource("CanvasTexture_lfhdc")
+
+[node name="Sprite2D6" type="Sprite2D" parent="." unique_id=742793489]
+position = Vector2(-202.99988, 236.00002)
+rotation = 3.1415927
+scale = Vector2(33.32758, -52.128643)
+texture = SubResource("CanvasTexture_lfhdc")
