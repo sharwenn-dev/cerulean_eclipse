@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3b53lo6s5cq0"
-path="res://.godot/imported/gunguywalk.png-77d9c59b36cad9be1d68bfc0d593e2af.ctex"
+uid="uid://c8onfjbwg7v34"
+path="res://.godot/imported/gunidle_head.png-4c5c9cfb6782f7c9bb1eac822105b671.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gunguysprites/gunguywalk.png"
-dest_files=["res://.godot/imported/gunguywalk.png-77d9c59b36cad9be1d68bfc0d593e2af.ctex"]
+source_file="res://assets/gunguysprites/new/gunidle_head.png"
+dest_files=["res://.godot/imported/gunidle_head.png-4c5c9cfb6782f7c9bb1eac822105b671.ctex"]
 
 [params]
 

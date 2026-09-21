@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lhjlgwus8pvc"
-path="res://.godot/imported/gunguyidlehead.png-f31c58668fb34d751ce4134c8344d7a8.ctex"
+uid="uid://dsey6aqejnswg"
+path="res://.godot/imported/gunwalk_body.png-65f4130f7c0a41e519e8376e295327c4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gunguysprites/gunguyidlehead.png"
-dest_files=["res://.godot/imported/gunguyidlehead.png-f31c58668fb34d751ce4134c8344d7a8.ctex"]
+source_file="res://assets/gunguysprites/new/gunwalk_body.png"
+dest_files=["res://.godot/imported/gunwalk_body.png-65f4130f7c0a41e519e8376e295327c4.ctex"]
 
 [params]
 

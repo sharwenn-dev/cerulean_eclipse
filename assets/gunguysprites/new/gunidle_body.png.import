@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brogf6vpqhqrx"
-path="res://.godot/imported/gunguyidle.png-0a6b110c857a1516cd8fe42bf699b7bf.ctex"
+uid="uid://cpp2kcplqftis"
+path="res://.godot/imported/gunidle_body.png-4b48b484e19a5d73aa13b72537419d2a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gunguysprites/gunguyidle.png"
-dest_files=["res://.godot/imported/gunguyidle.png-0a6b110c857a1516cd8fe42bf699b7bf.ctex"]
+source_file="res://assets/gunguysprites/new/gunidle_body.png"
+dest_files=["res://.godot/imported/gunidle_body.png-4b48b484e19a5d73aa13b72537419d2a.ctex"]
 
 [params]
 

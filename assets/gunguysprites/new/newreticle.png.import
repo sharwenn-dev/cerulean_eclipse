@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vmgjb75ksg3a"
-path="res://.godot/imported/gunguywalkhead.png-80ec371ca54892f3bd5d42c9c2edf2fc.ctex"
+uid="uid://cl113b3ng6cg"
+path="res://.godot/imported/newreticle.png-b6537f67459f4c735175ff40930ca21d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gunguysprites/gunguywalkhead.png"
-dest_files=["res://.godot/imported/gunguywalkhead.png-80ec371ca54892f3bd5d42c9c2edf2fc.ctex"]
+source_file="res://assets/gunguysprites/new/newreticle.png"
+dest_files=["res://.godot/imported/newreticle.png-b6537f67459f4c735175ff40930ca21d.ctex"]
 
 [params]
 
