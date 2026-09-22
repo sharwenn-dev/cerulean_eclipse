@@ -19,6 +19,9 @@ func physics_update(delta: float) -> void:
 			stats.jumps -= 1
 			transitioned.emit("jump")
 		
+		# if double input and stats.dashes >= 1:
+		#	transitioned.emit("airdash")
+		
 		if player.velocity.y >= 0:
 			transitioned.emit("fall")
 	else:

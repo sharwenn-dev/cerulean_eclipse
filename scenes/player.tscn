@@ -9,14 +9,21 @@
 [ext_resource type="Texture2D" uid="uid://bwaybb7tejuan" path="res://assets/gunidle_head.tres" id="4_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://cxk041ttr5eym" path="res://assets/gunjump_body.tres" id="5_3v2ag"]
 [ext_resource type="Texture2D" uid="uid://hqegljc6kmyy" path="res://assets/gunfal_body.tres" id="5_f1ej7"]
+[ext_resource type="Texture2D" uid="uid://buwb0u5d6can4" path="res://assets/gunguysprites/new/gunbreak_body.png" id="5_i4ail"]
 [ext_resource type="Texture2D" uid="uid://bu0s26vgxsk1i" path="res://assets/gunwalk_body.tres" id="5_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://bfmud7rtsmuiq" path="res://assets/gunguysprites/new/gunbrake_head.png" id="6_a38lo"]
 [ext_resource type="Texture2D" uid="uid://dt8t7igjhd0xv" path="res://assets/gunwalk_head.tres" id="6_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://blmqbcqptjpf6" path="res://assets/gunjump_head.tres" id="6_jej6c"]
 [ext_resource type="Texture2D" uid="uid://creshus6rmhp" path="res://assets/gunfall_head.tres" id="6_oprun"]
+[ext_resource type="Texture2D" uid="uid://cp0f2met4w7g4" path="res://assets/gunguysprites/new/gundash_body.png" id="7_4ni07"]
+[ext_resource type="Texture2D" uid="uid://dtqgjfypj8udk" path="res://assets/gunguysprites/new/gundash_head.png" id="8_l71n6"]
 [ext_resource type="Texture2D" uid="uid://cl113b3ng6cg" path="res://assets/gunguysprites/new/newreticle.png" id="9_ur7pv"]
 [ext_resource type="Script" uid="uid://dcofi7sscsfqo" path="res://scripts/player/states/move_state.gd" id="9_y4r1p"]
 [ext_resource type="Script" uid="uid://duad6atp7pduy" path="res://scenes/jump_state.gd" id="15_a8ls1"]
 [ext_resource type="Script" uid="uid://dfgkrs2bfgx13" path="res://scenes/fall_state.gd" id="16_qfm1y"]
+[ext_resource type="Script" uid="uid://bupnclc64u60e" path="res://scenes/gdash_state.gd" id="17_4r5pv"]
+[ext_resource type="Script" uid="uid://dd28n7qaoobu7" path="res://scenes/brake_state.gd" id="17_60mlk"]
+[ext_resource type="Script" uid="uid://jnf2t8jdj8aj" path="res://scenes/adash_state.gd" id="18_60mlk"]
 
 [sub_resource type="Resource" id="Resource_v1tok"]
 script = ExtResource("2_3v2ag")
@@ -99,6 +106,160 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_a38lo"]
+resource_name = "brake"
+length = 0.39999999999999997
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_i4ail")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Head:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("6_a38lo")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Head:hframes")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Head:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_l71n6"]
+resource_name = "dash"
+length = 0.5
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_4ni07")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.2, 0.4, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Head:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("8_l71n6")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Head:hframes")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Head:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.2, 0.4, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
 }
 
 [sub_resource type="Animation" id="Animation_oprun"]
@@ -414,6 +575,8 @@ tracks/5/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fjrip"]
 _data = {
 &"RESET": SubResource("Animation_d2wvv"),
+&"brake": SubResource("Animation_a38lo"),
+&"dash": SubResource("Animation_l71n6"),
 &"fall": SubResource("Animation_oprun"),
 &"idle": SubResource("Animation_3v2ag"),
 &"jump": SubResource("Animation_f1ej7"),
@@ -467,6 +630,17 @@ follow_head = true
 [node name="Fall" type="Node" parent="StateMachine" unique_id=260021624]
 script = ExtResource("16_qfm1y")
 follow_head = true
+
+[node name="Brake" type="Node" parent="StateMachine" unique_id=439013201]
+script = ExtResource("17_60mlk")
+
+[node name="GroundDash" type="Node" parent="StateMachine" unique_id=880567191]
+script = ExtResource("17_4r5pv")
+movement_locked = true
+
+[node name="AirDash" type="Node" parent="StateMachine" unique_id=1885537066]
+script = ExtResource("18_60mlk")
+movement_locked = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=982390416]
 

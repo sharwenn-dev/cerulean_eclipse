@@ -24,20 +24,20 @@ func set_animation_speed(anim_speed: float) -> void:
 
 func set_animation_direction() -> void:
 	if state_machine.current_state.reverse_while_backwards:
-		if owner.is_moving_backwards(): # in the future this should only apply to certain states
+		if owner.is_moving_backwards(): 
 				set_animation_speed(-current_anim_speed)
 		else:
 				set_animation_speed(current_anim_speed)
 
 func set_facing_direction() -> void:
-	if owner.has_node("Body"): # in the future we should be able to choose between the two versions below per state
+	if owner.has_node("Body"): 
 		if state_machine.current_state.follow_head:
 			mouse_pos = owner.get_global_mouse_position()
 			if mouse_pos.x > owner.position.x:
 				body_sprite.flip_h = false
 			elif mouse_pos.x < owner.position.x:
 				body_sprite.flip_h = true
-		else:
+		elif not state_machine.current_state.movement_locked:
 			var direction := Input.get_axis("left", "right")  
 			if direction != 0:
 				body_sprite.flip_h = direction < 0

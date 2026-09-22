@@ -16,4 +16,7 @@ func physics_update(delta: float) -> void:
 	if Input.is_action_just_pressed("up") and player.is_on_floor():
 		transitioned.emit("jump")
 	
+	# if double input and player.is_on_floor():
+	#	transitioned.emit("grounddash")
+	
 	player.move_and_slide()
