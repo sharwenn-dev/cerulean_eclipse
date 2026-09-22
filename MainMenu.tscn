@@ -2,6 +2,19 @@
 
 [ext_resource type="Script" uid="uid://b0hmbg85yctbn" path="res://mainmenu.gd" id="1_eiy7p"]
 [ext_resource type="Theme" uid="uid://b3kq74llqlv3x" path="res://assets/ui/MinimalUI.tres" id="2_h7a2f"]
+[ext_resource type="Texture2D" uid="uid://bdte1s8mqj46a" path="res://assets/ui/a1239373094_10-1745121974.jpg" id="3_h7a2f"]
+[ext_resource type="Shader" uid="uid://cckmyvw27ytnl" path="res://assets/ui/shaders/blur.gdshader" id="4_qoqlk"]
+[ext_resource type="Shader" uid="uid://46pmnnr0eftu" path="res://assets/ui/shaders/gradient.gdshader" id="5_iwfq2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5ac6k"]
+shader = ExtResource("4_qoqlk")
+shader_parameter/blur_lod = 1.7670000839325
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v1tok"]
+shader = ExtResource("5_iwfq2")
+shader_parameter/color_start = Color(0, 0.4627451, 0.48235294, 0.7921569)
+shader_parameter/color_end = Color(0, 0.3137255, 0.33333334, 0.60784316)
+shader_parameter/alpha = 1.0
 
 [node name="MainMenu" type="Control" unique_id=1355443677]
 layout_mode = 3
@@ -16,34 +29,109 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_eiy7p")
 
-[node name="BoxContainer" type="BoxContainer" parent="." unique_id=994668706]
-custom_minimum_size = Vector2(300, 50)
+[node name="Multiplayer" type="Button" parent="." unique_id=756297617]
+z_index = 1
 layout_mode = 0
-offset_left = 227.0
-offset_top = 35.0
-offset_right = 769.0
-offset_bottom = 608.0
+offset_left = -76.0
+offset_top = 76.0
+offset_right = 274.0
+offset_bottom = 112.0
+focus_neighbor_top = NodePath("../CloseGame")
+focus_neighbor_bottom = NodePath("../LocalMatch")
 theme = ExtResource("2_h7a2f")
-theme_override_constants/separation = 60
-vertical = true
+text = "Online"
+alignment = 0
 
-[node name="StartMatch" type="Button" parent="BoxContainer" unique_id=756297617]
-layout_mode = 2
-theme = ExtResource("2_h7a2f")
-text = "Start Match"
-
-[node name="CloseGame" type="Button" parent="BoxContainer" unique_id=1193570787]
-layout_mode = 2
+[node name="CloseGame" type="Button" parent="." unique_id=1193570787]
+z_index = 1
+layout_mode = 0
+offset_left = -76.0
+offset_top = 252.0
+offset_right = 274.0
+offset_bottom = 288.0
+focus_neighbor_top = NodePath("../TrainingMode")
+focus_neighbor_bottom = NodePath("../Multiplayer")
 theme = ExtResource("2_h7a2f")
 text = "Close Game"
+alignment = 0
 
-[node name="Tree" type="Tree" parent="." unique_id=160167701]
+[node name="LocalMatch" type="Button" parent="." unique_id=1237760956]
+z_index = 1
 layout_mode = 0
-offset_left = 143.0
-offset_top = 232.0
-offset_right = 844.0
-offset_bottom = 601.0
-column_titles_visible = true
+offset_left = -76.0
+offset_top = 135.0
+offset_right = 274.0
+offset_bottom = 171.0
+focus_neighbor_top = NodePath("../Multiplayer")
+focus_neighbor_bottom = NodePath("../TrainingMode")
+theme = ExtResource("2_h7a2f")
+text = "Versus"
+alignment = 0
 
-[connection signal="pressed" from="BoxContainer/StartMatch" to="." method="_on_start_match_pressed"]
-[connection signal="pressed" from="BoxContainer/CloseGame" to="." method="_on_close_game_pressed"]
+[node name="TrainingMode" type="Button" parent="." unique_id=1801090160]
+z_index = 1
+layout_mode = 0
+offset_left = -76.0
+offset_top = 194.0
+offset_right = 274.0
+offset_bottom = 230.0
+focus_neighbor_top = NodePath("../LocalMatch")
+focus_neighbor_bottom = NodePath("../CloseGame")
+theme = ExtResource("2_h7a2f")
+text = "Training"
+alignment = 0
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=294672497]
+z_index = -1
+layout_mode = 0
+offset_left = -136.0
+offset_top = -543.0
+offset_right = 1064.0
+offset_bottom = 657.0
+mouse_filter = 2
+texture = ExtResource("3_h7a2f")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1663257668]
+material = SubResource("ShaderMaterial_5ac6k")
+layout_mode = 0
+offset_left = -138.0
+offset_top = -43.0
+offset_right = 1064.0
+offset_bottom = 660.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="SubMenuBackground" type="ColorRect" parent="." unique_id=498609058]
+material = SubResource("ShaderMaterial_v1tok")
+layout_mode = 0
+offset_left = 308.0
+offset_top = -39.0
+offset_right = 308.0
+offset_bottom = 656.0
+color = Color(0, 0.47843137, 0.47843137, 0.5176471)
+
+[node name="Whiteline" type="ColorRect" parent="SubMenuBackground" unique_id=958538779]
+layout_mode = 0
+offset_left = -3.0
+offset_top = -5.0
+offset_right = 2.0
+offset_bottom = -0.9999695
+
+[node name="MarginContainer" type="MarginContainer" parent="SubMenuBackground" unique_id=1658920733]
+layout_mode = 0
+offset_left = 35.0
+offset_top = -39.0
+offset_right = 556.0
+offset_bottom = -7.0
+
+[node name="ButtonPreset" type="Button" parent="SubMenuBackground/MarginContainer" unique_id=1801712061]
+z_index = 1
+layout_mode = 2
+focus_neighbor_top = NodePath("../../../CloseGame")
+focus_neighbor_bottom = NodePath("../../../LocalMatch")
+theme = ExtResource("2_h7a2f")
+theme_override_colors/font_color = Color(0.65834004, 0.6583399, 0.6583399, 1)
+text = "Free Training"
+alignment = 0
+
+[connection signal="pressed" from="CloseGame" to="." method="_on_close_game_pressed"]

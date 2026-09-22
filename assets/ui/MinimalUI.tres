@@ -1,7 +1,46 @@
 [gd_resource type="Theme" format=3 uid="uid://b3kq74llqlv3x"]
 
 [ext_resource type="FontFile" uid="uid://coic30wsbnn2y" path="res://assets/ui/OpenSans-Regular.ttf" id="1"]
+[ext_resource type="FontFile" uid="uid://ra2soun0fcgj" path="res://assets/ui/fonts/monofonto rg.otf" id="1_fv3fy"]
 [ext_resource type="Texture2D" uid="uid://7tbq4wy6syj6" path="res://assets/ui/icons.svg" id="2"]
+
+[sub_resource type="StyleBoxFlat" id="1"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.28235295, 0.28235295, 0.28235295, 0)
+
+[sub_resource type="StyleBoxFlat" id="2"]
+bg_color = Color(0.12156863, 0.7529412, 0.6862745, 0.5529412)
+border_width_bottom = 1
+border_color = Color(0.58431375, 0.92941177, 1, 1)
+border_blend = true
+corner_detail = 10
+expand_margin_bottom = 3.0
+shadow_color = Color(0.47895086, 0.91296566, 0.99999994, 0.6)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="3"]
+bg_color = Color(0.12156863, 0.7529412, 0.6862745, 0.5529412)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.58431375, 0.92941177, 1, 1)
+border_blend = true
+corner_detail = 10
+shadow_color = Color(0.47843137, 0.9137255, 1, 0.6)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="4"]
+bg_color = Color(0.129412, 0.129412, 0.129412, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="FontFile" id="21"]
 fallbacks = Array[Font]([ExtResource("1")])
@@ -95,36 +134,11 @@ cache/0/31/0/descent = 0.0
 cache/0/31/0/underline_position = 0.0
 cache/0/31/0/underline_thickness = 0.0
 cache/0/31/0/scale = 1.0
-
-[sub_resource type="StyleBoxFlat" id="1"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.282353, 0.282353, 0.282353, 1)
-
-[sub_resource type="StyleBoxFlat" id="2"]
-bg_color = Color(1, 1, 1, 0)
-border_width_bottom = 1
-border_color = Color(0.282353, 0.282353, 0.282353, 1)
-expand_margin_bottom = 3.0
-
-[sub_resource type="StyleBoxFlat" id="3"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="4"]
-bg_color = Color(0.129412, 0.129412, 0.129412, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 1)
+cache/0/14/0/ascent = 0.0
+cache/0/14/0/descent = 0.0
+cache/0/14/0/underline_position = 0.0
+cache/0/14/0/underline_thickness = 0.0
+cache/0/14/0/scale = 1.0
 
 [sub_resource type="AtlasTexture" id="22"]
 atlas = ExtResource("2")
@@ -438,11 +452,11 @@ corner_radius_bottom_left = 2
 default_font = SubResource("21")
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_disabled_color = Color(0.9, 0.9, 0.9, 0.2)
-Button/colors/font_hover_color = Color(0.94, 0.94, 0.94, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
 Button/colors/font_pressed_color = Color(1, 1, 1, 1)
 Button/constants/h_separation = 2
 Button/font_sizes/font_size = 24
-Button/fonts/font = SubResource("21")
+Button/fonts/font = ExtResource("1_fv3fy")
 Button/styles/disabled = SubResource("1")
 Button/styles/focus = SubResource("2")
 Button/styles/hover = SubResource("3")
