@@ -6,6 +6,9 @@ signal transitioned(new_state_name: String)
 var player: CharacterBody2D
 var stats: PlayerStats
 
+@export var reverse_while_backwards: bool = false
+@export var follow_head: bool = false
+
 func enter() -> void:
 	pass
 

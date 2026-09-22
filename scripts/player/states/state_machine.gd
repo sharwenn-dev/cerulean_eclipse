@@ -36,3 +36,5 @@ func _on_child_transitioned(new_state_name: String) -> void:
 		
 	new_state.enter()
 	current_state = new_state
+	# print(states)
+	# print(current_state)

@@ -41,6 +41,6 @@ func _physics_process(delta: float) -> void:
 	var direction = Input.get_axis("left", "right")
 	mouse_pos = get_global_mouse_position()
 	
-	velocity.x = direction * stats.base_move_speed
+	#velocity.x = direction * stats.base_move_speed
 
 	move_and_slide()
