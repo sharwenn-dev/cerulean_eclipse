@@ -1,30 +1,28 @@
 extends State
 
-func enter() -> void:
-	player.animation_controller.set_animation_speed(abs(player.animation_controller.current_anim_speed))
-	# ^^ sets animation speed back to positive so it never plays reversed accidentally
-	player.animation_controller.play_animation("fall")
-	
-	# can try to give player small horizontal control if you want
-	#var direction := Input.get_axis("left", "right")
-	#if direction != 0:
-		#player.velocity.x = direction * stats.base_move_speed
+@export var idle_state: State
+@export var walk_state: State
+@export var jump_state: State
 
-func physics_update(delta: float) -> void:
-	if not player.is_on_floor():
-		player.velocity.y += stats.gravity * delta
-		if Input.is_action_just_pressed("up") and stats.jumps >= 1:
-			stats.jumps -= 1
-			transitioned.emit("jump")
-		
-		# if double input and stats.dashes >= 1:
-		#	transitioned.emit("airdash")
-		
-	else:
+func enter() -> void:
+	clear_dash_state()
+	player.animation_controller.set_animation_speed(abs(player.animation_controller.current_anim_speed))
+
+	player.animation_controller.play_animation("fall")
+
+func process_physics(delta: float) -> State:
+	player.velocity.y += stats.gravity * delta
+
+	if get_jump() and stats.jumps >= 1:
+		stats.jumps -= 1
+		return jump_state
+
+	if player.is_on_floor():
 		stats.jumps = stats.max_jumps
-		if player.velocity.x != 0:	#
-			transitioned.emit("walk")
+
+		if player.velocity.x != 0:
+			return walk_state
 		else:
-			transitioned.emit("idle")
-		
-	player.move_and_slide()
+			return idle_state
+
+	return null

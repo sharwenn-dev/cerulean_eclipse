@@ -1,24 +1,35 @@
 extends State
 
+@export var idle_state: State
+@export var fall_state: State
+@export var jump_state: State
+@export var grounddash_state: State
+
 func enter() -> void:
+	player.animation_controller.set_animation_speed(abs(player.animation_controller.current_anim_speed))
 	player.animation_controller.play_animation("walk")
 
-func physics_update(delta: float) -> void:
+func process_physics(delta: float):
 	if not player.is_on_floor():
 		player.velocity.y += stats.gravity * delta
+		
 		if player.velocity.y >= 0:
-			transitioned.emit("fall")
+			return fall_state
 			
-	var direction := Input.get_axis("left", "right")
-	if direction != 0:
-		player.velocity.x = direction * stats.base_move_speed
-	else:
-		transitioned.emit("idle")
-	
-	if Input.is_action_just_pressed("up") and player.is_on_floor():
-		transitioned.emit("jump")
-	
+	var direction := get_movement_input()
+	if direction == 0:
+		return idle_state
+		
+	player.velocity.x = direction * stats.base_move_speed
+	if get_jump() and player.is_on_floor():
+		return jump_state
+
+	if player.is_on_floor() and wants_ground_dash() != 0:
+		print("gdash move")
+		return grounddash_state
+
+		
 	# if double input and player.is_on_floor():
 	#	transitioned.emit("grounddash")
 	
-	player.move_and_slide()
+	return null

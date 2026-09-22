@@ -1,40 +1,40 @@
 class_name StateMachine
 extends Node
 
-@export var initial_state: State
-@export var current_state: State
+@export var starting_state: State
 
-var states: Dictionary = {}
+var current_state: State
 
-func init(player: CharacterBody2D, stats: PlayerStats) -> void:
+
+func init(player: Player, stats: PlayerStats, move_component: Node) -> void:
 	for child in get_children():
 		if child is State:
-			states[child.name.to_lower()] = child
 			child.player = player
 			child.stats = stats
-			child.transitioned.connect(_on_child_transitioned)
-			
-	if initial_state:
-		initial_state.enter()
-		current_state = initial_state
+			child.move_component = move_component
 
-func update(delta: float) -> void:
-	if current_state:
-		current_state.update(delta)
+	change_state(starting_state)
 
-func physics_update(delta: float) -> void:
-	if current_state:
-		current_state.physics_update(delta)
 
-func _on_child_transitioned(new_state_name: String) -> void:
-	var new_state = states.get(new_state_name.to_lower())
-	if not new_state:
-		return
-		
+func change_state(new_state: State) -> void:
 	if current_state:
 		current_state.exit()
-		
-	new_state.enter()
+
 	current_state = new_state
-	# print(states)
-	# print(current_state)
+	current_state.enter()
+	
+func process_physics(delta: float) -> void:
+	print("CURRENT STATE: ", current_state.name)
+	var new_state := current_state.process_physics(delta)
+	if new_state:
+		change_state(new_state)
+		
+func process_input(event: InputEvent) -> void:
+	var new_state := current_state.process_input(event)
+	if new_state:
+		change_state(new_state)
+
+func process_frame(delta: float) -> void:
+	var new_state := current_state.process_frame(delta)
+	if new_state:
+		change_state(new_state)

@@ -15,32 +15,31 @@ extends Node
 @export var current_anim_speed = base_anim_speed
 
 func play_animation(anim_name: String) -> void:
-	if animation_player and animation_player.current_animation != anim_name:
-		#current_anim_speed = abs(current_anim_speed)
+	if animation_player:
 		animation_player.play(anim_name)
 
 func set_animation_speed(anim_speed: float) -> void:
 	animation_player.speed_scale = anim_speed
 
 func set_animation_direction() -> void:
-	if state_machine.current_state.reverse_while_backwards:
-		if owner.is_moving_backwards(): 
-				set_animation_speed(-current_anim_speed)
-		else:
-				set_animation_speed(current_anim_speed)
+	if not state_machine.current_state.reverse_while_backwards:
+		set_animation_speed(abs(current_anim_speed))
+		return
+	if owner.is_moving_backwards():
+		set_animation_speed(-abs(current_anim_speed))
+	else:
+		set_animation_speed(abs(current_anim_speed))
 
 func set_facing_direction() -> void:
-	if owner.has_node("Body"): 
-		if state_machine.current_state.follow_head:
-			mouse_pos = owner.get_global_mouse_position()
-			if mouse_pos.x > owner.position.x:
-				body_sprite.flip_h = false
-			elif mouse_pos.x < owner.position.x:
-				body_sprite.flip_h = true
-		elif not state_machine.current_state.movement_locked:
-			var direction := Input.get_axis("left", "right")  
-			if direction != 0:
-				body_sprite.flip_h = direction < 0
+	if not owner.has_node("Body"):
+		return
+	if state_machine.current_state.movement_locked:
+		return
+	mouse_pos = owner.get_global_mouse_position()
+	if mouse_pos.x > owner.global_position.x:
+		body_sprite.flip_h = false
+	elif mouse_pos.x < owner.global_position.x:
+		body_sprite.flip_h = true
 
 # will refactor later for efficiency 
 func set_head_rotation() -> void:

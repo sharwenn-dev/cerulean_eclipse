@@ -24,6 +24,7 @@
 [ext_resource type="Script" uid="uid://bupnclc64u60e" path="res://scenes/gdash_state.gd" id="17_4r5pv"]
 [ext_resource type="Script" uid="uid://dd28n7qaoobu7" path="res://scenes/brake_state.gd" id="17_60mlk"]
 [ext_resource type="Script" uid="uid://jnf2t8jdj8aj" path="res://scenes/adash_state.gd" id="18_60mlk"]
+[ext_resource type="Script" uid="uid://dsp57ajyc7hqg" path="res://scenes/player_input_component.gd" id="24_ke2ow"]
 
 [sub_resource type="Resource" id="Resource_v1tok"]
 script = ExtResource("2_3v2ag")
@@ -110,7 +111,7 @@ tracks/5/keys = {
 
 [sub_resource type="Animation" id="Animation_a38lo"]
 resource_name = "brake"
-length = 0.39999999999999997
+length = 0.4
 step = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -609,26 +610,40 @@ libraries/ = SubResource("AnimationLibrary_fjrip")
 script = ExtResource("2_dqkch")
 animation_player = NodePath("../AnimationPlayer")
 
-[node name="StateMachine" type="Node" parent="." unique_id=460251227 node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" type="Node" parent="." unique_id=460251227 node_paths=PackedStringArray("starting_state")]
 script = ExtResource("3_qlg0r")
-initial_state = NodePath("Idle")
+starting_state = NodePath("Idle")
 metadata/_custom_type_script = "uid://brqen7u465lqd"
 
-[node name="Idle" type="Node" parent="StateMachine" unique_id=2026680577]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=2026680577 node_paths=PackedStringArray("walk_state", "fall_state", "jump_state", "grounddash_state")]
 script = ExtResource("4_tuyoq")
+walk_state = NodePath("../Walk")
+fall_state = NodePath("../Fall")
+jump_state = NodePath("../Jump")
+grounddash_state = NodePath("../GroundDash")
 follow_head = true
 
-[node name="Walk" type="Node" parent="StateMachine" unique_id=792215615]
+[node name="Walk" type="Node" parent="StateMachine" unique_id=792215615 node_paths=PackedStringArray("idle_state", "fall_state", "jump_state", "grounddash_state")]
 script = ExtResource("9_y4r1p")
+idle_state = NodePath("../Idle")
+fall_state = NodePath("../Fall")
+jump_state = NodePath("../Jump")
+grounddash_state = NodePath("../GroundDash")
 reverse_while_backwards = true
 follow_head = true
 
-[node name="Jump" type="Node" parent="StateMachine" unique_id=1803874314]
+[node name="Jump" type="Node" parent="StateMachine" unique_id=1803874314 node_paths=PackedStringArray("fall_state", "idle_state", "jump_state")]
 script = ExtResource("15_a8ls1")
+fall_state = NodePath("../Fall")
+idle_state = NodePath("../Idle")
+jump_state = NodePath(".")
 follow_head = true
 
-[node name="Fall" type="Node" parent="StateMachine" unique_id=260021624]
+[node name="Fall" type="Node" parent="StateMachine" unique_id=260021624 node_paths=PackedStringArray("idle_state", "walk_state", "jump_state")]
 script = ExtResource("16_qfm1y")
+idle_state = NodePath("../Idle")
+walk_state = NodePath("../Walk")
+jump_state = NodePath("../Jump")
 follow_head = true
 
 [node name="Brake" type="Node" parent="StateMachine" unique_id=439013201]
@@ -636,11 +651,9 @@ script = ExtResource("17_60mlk")
 
 [node name="GroundDash" type="Node" parent="StateMachine" unique_id=880567191]
 script = ExtResource("17_4r5pv")
-movement_locked = true
 
 [node name="AirDash" type="Node" parent="StateMachine" unique_id=1885537066]
 script = ExtResource("18_60mlk")
-movement_locked = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=982390416]
 
@@ -653,3 +666,6 @@ texture = ExtResource("9_ur7pv")
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=1965346975]
 target_position = Vector2(0, 50.91)
 collide_with_bodies = false
+
+[node name="player_input_component" type="Node" parent="." unique_id=348863641]
+script = ExtResource("24_ke2ow")

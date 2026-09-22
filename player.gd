@@ -1,11 +1,16 @@
 class_name Player
 extends CharacterBody2D
 signal defeat
+const double_tap_time := 0.2
+signal transitioned
+var last_left_press := 1.0
+var last_right_press := -1.0
 @export var stats: PlayerStats
 @onready var state_machine: StateMachine = $StateMachine
-@onready var animation_controller: PlayerAnimationController = $AnimationController
 @onready var mouse_pos = get_global_mouse_position()
 @onready var ray: RayCast2D = $RayCast2D
+@onready var player_move_component = $player_input_component
+@onready var animation_controller: PlayerAnimationController = $AnimationController
 var dead = false
 func _draw() -> void:
 	var ray_length: float = lerp(
@@ -26,7 +31,7 @@ func _draw() -> void:
 func _ready() -> void:
 	if not stats:
 		stats = PlayerStats.new()
-	state_machine.init(self, stats)
+	state_machine.init(self, stats, player_move_component)
 	
 func take_damage(damage):
 	stats.health -= damage
@@ -46,18 +51,17 @@ func is_moving_backwards() -> bool:
 	return moving_dir != mouse_dir
 
 func _process(delta: float) -> void:
-	state_machine.update(delta)
+	state_machine.process_frame(delta)
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("damageself"):
 		take_damage(50)
-		
+	if	event.is_action_pressed("right") or event.is_action_pressed("left"):
+		if self.is_on_floor():
+			transitioned.emit("gdash")
+		else:
+			pass
 func _physics_process(delta: float) -> void:
-	
-	state_machine.physics_update(delta)
-	var direction = Input.get_axis("left", "right")
-	mouse_pos = get_global_mouse_position()
-
-	#velocity.x = direction * stats.base_move_speed
-
+	state_machine.process_physics(delta)
 	move_and_slide()
+	mouse_pos = get_global_mouse_position()
 	queue_redraw()
