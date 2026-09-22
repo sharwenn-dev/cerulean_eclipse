@@ -6,7 +6,8 @@ func enter() -> void:
 func physics_update(delta: float) -> void:
 	if not player.is_on_floor():
 		player.velocity.y += stats.gravity * delta
-		#transitioned.emit("fall")
+		if player.velocity.y >= 0:
+			transitioned.emit("fall")
 			
 	var direction := Input.get_axis("left", "right")
 	if direction != 0:

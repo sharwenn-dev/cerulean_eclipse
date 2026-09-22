@@ -14,17 +14,21 @@ var submenu_button_tweens: Array[Tween] = []
 var buttons: Array[Button] = []
 var first_button: Button
 var current_open_submenu: Button
+
 const BUTTON_SPACING := 40.0
 const START_X := -20.0
 const START_Y := 190.0
+
 enum InputMode {
 	MOUSE,
 	CONTROLLER
 }
 
 var input_mode := InputMode.MOUSE
+
+@onready var ui_cancel_sfx = $CancelSfx
 @onready var submenubackground = $SubMenuBackground
-@onready var submenuwhiteline = $SubMenuBackground/Whiteline
+@onready var submenuwhiteline = $Whiteline
 
 var training_options := [
 	"Free Training",
@@ -45,6 +49,8 @@ var online_options := [
 	
 	
 ]
+
+
 func _save_settings(gamemode) -> void:
 	if gamemode == "Sandbox":
 		settings.rounds_enabled = false
@@ -113,14 +119,14 @@ func _close_submenu() -> void:
 			material.set_shader_parameter("alpha", value),
 		material.get_shader_parameter("alpha"),
 		0.0,
-		0.05
+		0.2
 	)
 
 	submenu_tween.tween_property(
 		submenuwhiteline,
 		"size",
 		Vector2(5.0, 0.0),
-		0.05
+		0.2
 	)
 
 	submenu_tween.finished.connect(func():
@@ -268,6 +274,11 @@ func _ready():
 
 
 func _input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		var hovered := get_viewport().gui_get_hovered_control()
+		if hovered != null and hovered.get_parent() == self and hovered.name != "CloseGame":
+			get_viewport().set_input_as_handled()
+			return
 	if event is InputEventMouseMotion and using_controller:
 		get_viewport().gui_release_focus()
 		using_controller = false
@@ -277,6 +288,7 @@ func _input(event: InputEvent) -> void:
 		focus_controller()
 	elif event.is_action_pressed("ui_cancel"):
 		if submenu_open:
+			ui_cancel_sfx.play()
 			returning_from_cancel = true
 			_close_submenu()
 			last_main_focus.grab_focus.call_deferred()

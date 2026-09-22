@@ -5,6 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://bdte1s8mqj46a" path="res://assets/ui/a1239373094_10-1745121974.jpg" id="3_h7a2f"]
 [ext_resource type="Shader" uid="uid://cckmyvw27ytnl" path="res://assets/ui/shaders/blur.gdshader" id="4_qoqlk"]
 [ext_resource type="Shader" uid="uid://46pmnnr0eftu" path="res://assets/ui/shaders/gradient.gdshader" id="5_iwfq2"]
+[ext_resource type="FontFile" uid="uid://ra2soun0fcgj" path="res://assets/ui/fonts/monofonto rg.otf" id="6_7r1g0"]
+[ext_resource type="Script" uid="uid://umwq8wx5cr4q" path="res://ui_audio_loader.gd" id="7_cqjrg"]
+[ext_resource type="AudioStream" uid="uid://d33f30maqgfby" path="res://assets/ui/soundeffects/Coffee1.wav" id="8_e2xy7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5ac6k"]
 shader = ExtResource("4_qoqlk")
@@ -103,6 +106,7 @@ color = Color(1, 1, 1, 0)
 
 [node name="SubMenuBackground" type="ColorRect" parent="." unique_id=498609058]
 material = SubResource("ShaderMaterial_v1tok")
+clip_contents = true
 layout_mode = 0
 offset_left = 308.0
 offset_top = -39.0
@@ -110,14 +114,8 @@ offset_right = 308.0
 offset_bottom = 656.0
 color = Color(0, 0.47843137, 0.47843137, 0.5176471)
 
-[node name="Whiteline" type="ColorRect" parent="SubMenuBackground" unique_id=958538779]
-layout_mode = 0
-offset_left = -3.0
-offset_top = -5.0
-offset_right = 2.0
-offset_bottom = -0.9999695
-
 [node name="MarginContainer" type="MarginContainer" parent="SubMenuBackground" unique_id=1658920733]
+z_index = 1
 layout_mode = 0
 offset_left = 35.0
 offset_top = -39.0
@@ -133,5 +131,38 @@ theme = ExtResource("2_h7a2f")
 theme_override_colors/font_color = Color(0.65834004, 0.6583399, 0.6583399, 1)
 text = "Free Training"
 alignment = 0
+
+[node name="Label" type="Label" parent="." unique_id=1326980432]
+layout_mode = 0
+offset_left = -81.0
+offset_top = -3.0
+offset_right = 151.0
+offset_bottom = 44.0
+theme_override_fonts/font = ExtResource("6_7r1g0")
+theme_override_font_sizes/font_size = 29
+text = "Cerulean Eclipse"
+horizontal_alignment = 1
+
+[node name="Whiteline2" type="ColorRect" parent="Label" unique_id=350484373]
+layout_mode = 0
+offset_left = -87.0
+offset_top = 46.0
+offset_right = 285.0
+offset_bottom = 53.0
+
+[node name="AudioLoader" type="Node" parent="." unique_id=1720819505]
+script = ExtResource("7_cqjrg")
+
+[node name="CancelSfx" type="AudioStreamPlayer" parent="." unique_id=956969640]
+stream = ExtResource("8_e2xy7")
+max_polyphony = 32
+
+[node name="Whiteline" type="ColorRect" parent="." unique_id=958538779]
+z_index = 2
+layout_mode = 0
+offset_left = 305.0
+offset_top = -44.0
+offset_right = 310.0
+offset_bottom = -39.99997
 
 [connection signal="pressed" from="CloseGame" to="." method="_on_close_game_pressed"]
