@@ -17,6 +17,9 @@ func physics_update(delta: float) -> void:
 			transitioned.emit("jump")
 	else:
 		stats.jumps = stats.max_jumps
-		transitioned.emit("idle")
+		if player.velocity.x != 0:	
+			transitioned.emit("walk")
+		else:
+			transitioned.emit("idle")
 		
 	player.move_and_slide()

@@ -475,3 +475,7 @@ position = Vector2(3.5, -2)
 
 [node name="Sprite2D" type="Sprite2D" parent="AimHandler" unique_id=1419144414]
 texture = ExtResource("9_ur7pv")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1965346975]
+target_position = Vector2(0, 50.91)
+collide_with_bodies = false

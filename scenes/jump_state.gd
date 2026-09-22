@@ -25,4 +25,5 @@ func physics_update(delta: float) -> void:
 		stats.jumps = stats.max_jumps
 		transitioned.emit("idle")
 		
+			
 	player.move_and_slide()
