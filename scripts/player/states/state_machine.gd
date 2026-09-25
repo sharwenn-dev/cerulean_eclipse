@@ -12,19 +12,18 @@ func init(player: Player, stats: PlayerStats, move_component: Node) -> void:
 			child.player = player
 			child.stats = stats
 			child.move_component = move_component
-
 	change_state(starting_state)
 
 
-func change_state(new_state: State) -> void:
+func change_state(new_state: State, is_loading: bool = false) -> void:
 	if current_state:
 		current_state.exit()
 
 	current_state = new_state
-	current_state.enter()
+	current_state.enter(is_loading)
 	
 func process_physics(delta: float) -> void:
-	print("CURRENT STATE: ", current_state.name)
+	# print("CURRENT STATE: ", current_state.name)
 	var new_state := current_state.process_physics(delta)
 	if new_state:
 		change_state(new_state)

@@ -584,7 +584,7 @@ _data = {
 &"walk": SubResource("Animation_jej6c")
 }
 
-[node name="Player" type="CharacterBody2D" unique_id=161248642]
+[node name="Player" type="CharacterBody2D" unique_id=161248642 groups=["players"]]
 script = ExtResource("1_3vyb7")
 stats = SubResource("Resource_v1tok")
 

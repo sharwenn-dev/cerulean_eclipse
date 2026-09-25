@@ -5,14 +5,13 @@ extends State
 @export var jump_state: State
 @export var grounddash_state: State
 
-func enter() -> void:
+func enter(is_loading: bool = false) -> void:
 	player.animation_controller.set_animation_speed(abs(player.animation_controller.current_anim_speed))
 	player.velocity.x = 0.0
 	player.animation_controller.play_animation("idle")
 
 func process_physics(delta: float) -> State:
-	
-	if not player.is_on_floor():
+	if not stats.grounded:
 		player.velocity.y += stats.gravity * delta
 		if player.velocity.y >= 0:
 			return fall_state
@@ -21,7 +20,7 @@ func process_physics(delta: float) -> State:
 		return walk_state
 	if get_jump():
 		return jump_state
-	if wants_ground_dash() != 0:
+	if get_ground_dash() != 0:
 		print("gdash idle")
 		return grounddash_state
 	return null

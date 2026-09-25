@@ -13,7 +13,8 @@ func _on_defeat(player, timeofdeath) -> void:
 	if not match_settings.rounds_enabled:
 		return
 	print(player + " loses!")
-	print("died at " + str(timeofdeath) + " ms")
+	print("died at frame " + str(MatchManager.current_frame))
+	MatchManager.match_active = false
 
 
 func _on_match_start(settings: MatchSettings):
@@ -24,4 +25,5 @@ func _on_match_start(settings: MatchSettings):
 	var player = player_scene.instantiate()
 	$"..".add_child(player)
 	$"../Stage".add_child(map)
+	MatchManager.match_active = true
 	player.defeat.connect(_on_defeat)

@@ -10,7 +10,7 @@ var move_component
 @export var movement_locked: bool = false
 
 
-func enter() -> void:
+func enter(is_loading: bool) -> void:
 	pass
 
 func exit() -> void:
@@ -31,7 +31,7 @@ func get_movement_input() -> float:
 func get_jump() -> bool:
 	return move_component.wants_jump()
 
-func wants_ground_dash() -> float:
+func get_ground_dash() -> float:
 	return move_component.wants_ground_dash()
 
 func clear_dash_state() -> void:

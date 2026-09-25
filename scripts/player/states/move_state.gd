@@ -5,7 +5,7 @@ extends State
 @export var jump_state: State
 @export var grounddash_state: State
 
-func enter() -> void:
+func enter(is_loading: bool = false) -> void:
 	player.animation_controller.set_animation_speed(abs(player.animation_controller.current_anim_speed))
 	player.animation_controller.play_animation("walk")
 
@@ -24,12 +24,8 @@ func process_physics(delta: float):
 	if get_jump() and player.is_on_floor():
 		return jump_state
 
-	if player.is_on_floor() and wants_ground_dash() != 0:
+	if player.is_on_floor() and get_ground_dash() != 0:
 		print("gdash move")
 		return grounddash_state
-
-		
-	# if double input and player.is_on_floor():
-	#	transitioned.emit("grounddash")
 	
 	return null

@@ -35,6 +35,7 @@ func set_facing_direction() -> void:
 		return
 	if state_machine.current_state.movement_locked:
 		return
+	
 	mouse_pos = owner.get_global_mouse_position()
 	if mouse_pos.x > owner.global_position.x:
 		body_sprite.flip_h = false
