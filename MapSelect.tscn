@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://cg733pkbgo3nv"]
+
+[ext_resource type="Texture2D" uid="uid://bdte1s8mqj46a" path="res://assets/ui/a1239373094_10-1745121974.jpg" id="1_hbfx7"]
+[ext_resource type="Theme" uid="uid://b3kq74llqlv3x" path="res://assets/ui/MinimalUI.tres" id="2_242en"]
+
+[node name="MapSelect" type="Control" unique_id=1605962316]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=602279589]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 0
+offset_left = 18.0
+offset_top = 109.0
+offset_right = 1368.0
+offset_bottom = 569.0
+theme_override_constants/separation = 30
+
+[node name="TextureButton" type="TextureButton" parent="HBoxContainer" unique_id=317806234]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture_normal = ExtResource("1_hbfx7")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureButton2" type="TextureButton" parent="HBoxContainer" unique_id=1582429032]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture_normal = ExtResource("1_hbfx7")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureButton3" type="TextureButton" parent="HBoxContainer" unique_id=69395273]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture_normal = ExtResource("1_hbfx7")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureButton4" type="TextureButton" parent="HBoxContainer" unique_id=1145507231]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture_normal = ExtResource("1_hbfx7")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureButton5" type="TextureButton" parent="HBoxContainer" unique_id=1113928045]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture_normal = ExtResource("1_hbfx7")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="TextureButton6" type="TextureButton" parent="HBoxContainer" unique_id=154411360]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme = ExtResource("2_242en")
+texture_normal = ExtResource("1_hbfx7")
+ignore_texture_size = true
+stretch_mode = 5

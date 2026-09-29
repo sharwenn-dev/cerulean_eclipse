@@ -132,7 +132,7 @@ theme_override_colors/font_color = Color(0.65834004, 0.6583399, 0.6583399, 1)
 text = "Free Training"
 alignment = 0
 
-[node name="Label" type="Label" parent="." unique_id=1326980432]
+[node name="GameTitle" type="Label" parent="." unique_id=1326980432]
 layout_mode = 0
 offset_left = -81.0
 offset_top = -3.0
@@ -143,12 +143,24 @@ theme_override_font_sizes/font_size = 29
 text = "Cerulean Eclipse"
 horizontal_alignment = 1
 
-[node name="Whiteline2" type="ColorRect" parent="Label" unique_id=350484373]
+[node name="Whiteline2" type="ColorRect" parent="GameTitle" unique_id=350484373]
 layout_mode = 0
 offset_left = -87.0
 offset_top = 46.0
 offset_right = 285.0
 offset_bottom = 53.0
+
+[node name="GameVersion" type="Label" parent="." unique_id=955075118]
+layout_mode = 0
+offset_left = -75.0
+offset_top = 577.0
+offset_right = 157.0
+offset_bottom = 624.0
+theme_override_fonts/font = ExtResource("6_7r1g0")
+theme_override_font_sizes/font_size = 14
+text = "v0.1
+"
+vertical_alignment = 2
 
 [node name="AudioLoader" type="Node" parent="." unique_id=1720819505]
 script = ExtResource("7_cqjrg")

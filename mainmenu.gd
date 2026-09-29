@@ -12,6 +12,7 @@ var skip_submenu_animation := false
 var returning_from_cancel := false
 var submenu_button_tweens: Array[Tween] = []
 var buttons: Array[Button] = []
+var hovered_button: Button
 var first_button: Button
 var current_open_submenu: Button
 
@@ -25,7 +26,10 @@ enum InputMode {
 }
 
 var input_mode := InputMode.MOUSE
+var last_mouse_button: Button
+var last_controller_button: Button
 
+@onready var main_button = $Multiplayer
 @onready var ui_cancel_sfx = $CancelSfx
 @onready var submenubackground = $SubMenuBackground
 @onready var submenuwhiteline = $Whiteline
@@ -53,11 +57,39 @@ var online_options := [
 
 func _save_settings(gamemode) -> void:
 	if gamemode == "Sandbox":
-		settings.rounds_enabled = false
+		settings.training = true
 		settings.match_length = INF
 		settings.map = 1
 	pass
 	
+	
+func _switch_to_mouse() -> void:
+	if input_mode == InputMode.MOUSE:
+		return
+	input_mode = InputMode.MOUSE
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	get_viewport().gui_release_focus()
+func _switch_to_controller() -> void:
+	if input_mode == InputMode.CONTROLLER:
+		return
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	input_mode = InputMode.CONTROLLER
+
+	if is_instance_valid(last_controller_button):
+		last_controller_button.grab_focus()
+	elif is_instance_valid(last_focused):
+		last_focused.grab_focus()
+	else:
+		main_button.grab_focus()
+		
+		
+func _handle_cancel() -> void:
+	if submenu_open:
+		ui_cancel_sfx.play()
+		returning_from_cancel = true
+
+		if is_instance_valid(last_main_focus):
+			last_main_focus.grab_focus.call_deferred()		
 func _open_submenu(submenu, animate_buttons := true) -> void:
 	print("open")
 	submenu_open = true
@@ -90,6 +122,7 @@ func _open_submenu(submenu, animate_buttons := true) -> void:
 		0.2
 	)
 	_init_submenu_buttons(generation,submenu,animate_buttons)
+
 func _close_submenu() -> void:
 	if not submenu_open:
 		return
@@ -138,7 +171,9 @@ func _close_submenu() -> void:
 	)
 		
 func _on_button_focused_entered(button: Button) -> void:
-	print("Focused:", button.name)
+	if button.get_parent() == self:
+		last_main_focus = button
+
 	var tween = create_tween()
 	tween.tween_property(
 		button,
@@ -146,6 +181,7 @@ func _on_button_focused_entered(button: Button) -> void:
 		original_positions[button] + Vector2(20.0, 0.0),
 		0.1
 	)
+
 	#choose what button opens what submenu
 	if button.name == "TrainingMode":
 		_open_submenu(training_options, not returning_from_cancel)
@@ -171,8 +207,11 @@ func _on_button_focused_exited(button: Button) -> void:
 	
 func _on_button_selected(button: Button) -> void:
 	#Choose what buttons have submenus
-	if (button.name == "TrainingMode" or button.name == "LocalMatch" or button.name == "Multiplayer") and first_button:
-		first_button.grab_focus.call_deferred()
+	if (button.name == "TrainingMode" or button.name == "LocalMatch" or button.name == "Multiplayer"):
+		if is_instance_valid(first_button):
+			first_button.grab_focus()
+		return
+
 	if button.name == "Sandbox":
 		_save_settings("Sandbox")
 		start_match.emit(settings)
@@ -234,9 +273,13 @@ func _init_submenu_buttons(generation: int, submenu, animatebuttons: bool) -> vo
 	for i in buttons.size():
 		if i > 0:
 			buttons[i].focus_neighbor_top = buttons[i - 1].get_path()
+		else:
+			buttons[i].focus_neighbor_top = buttons[buttons.size() - 1].get_path()
 
 		if i < buttons.size() - 1:
 			buttons[i].focus_neighbor_bottom = buttons[i + 1].get_path()
+		else:
+			buttons[i].focus_neighbor_bottom = buttons[0].get_path()
 func _on_focus_changed(control: Control) -> void:
 	last_focused = control
 	if control.get_parent() == self:
@@ -261,14 +304,16 @@ func _ready():
 			child.focus_exited.connect(func():
 				_on_button_focused_exited(child)
 			)
-			child.mouse_entered.connect(func():
-				_on_button_focused_entered(child)
-			)
-			child.mouse_exited.connect(func():
-				_on_button_focused_exited(child)
-			)
 			child.pressed.connect(func():
 				_on_button_selected(child)
+			)
+			child.mouse_entered.connect(func():
+				if input_mode == InputMode.MOUSE:
+					_on_button_focused_entered(child)
+				)
+			child.mouse_exited.connect(func():
+				if input_mode == InputMode.MOUSE:
+					_on_button_focused_exited(child)
 			)
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 
@@ -279,19 +324,25 @@ func _input(event: InputEvent) -> void:
 		if hovered != null and hovered.get_parent() == self and hovered.name != "CloseGame":
 			get_viewport().set_input_as_handled()
 			return
-	if event is InputEventMouseMotion and using_controller:
-		get_viewport().gui_release_focus()
-		using_controller = false
-	elif event is InputEventJoypadMotion and not using_controller and abs(event.axis_value) > 0.2:
-		focus_controller()
-	elif  event is InputEventJoypadButton and not using_controller:
-		focus_controller()
-	elif event.is_action_pressed("ui_cancel"):
-		if submenu_open:
-			ui_cancel_sfx.play()
-			returning_from_cancel = true
-			_close_submenu()
-			last_main_focus.grab_focus.call_deferred()
+	if event.is_action_pressed("ui_cancel"):
+		_handle_cancel()
+		return
+
+	if event is InputEventMouseMotion:
+		if event.relative.length_squared() > 0.0:
+			_switch_to_mouse()
+		return
+
+	if event is InputEventJoypadMotion:
+		if abs(event.axis_value) > 0.2:
+			_switch_to_controller()
+			
+		return
+
+	if event is InputEventJoypadButton:
+		if event.pressed:
+			_switch_to_controller()
+		return
 
 func _on_close_game_pressed() -> void:
 	get_tree().quit()
