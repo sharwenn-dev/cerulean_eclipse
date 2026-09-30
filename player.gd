@@ -93,7 +93,8 @@ func save_state() -> Dictionary:
 		"velocity_y": velocity.y,
 		"state": state_machine.current_state,
 		"anim_name": animation_controller.animation_player.current_animation,
-		"anim_pos": animation_controller.animation_player.current_animation_position
+		"anim_pos": animation_controller.animation_player.current_animation_position,
+		"current_frame": MatchManager.current_frame
 	}
 	
 	var stats_data = stats.save_stats()
@@ -109,6 +110,8 @@ func load_state(data: Dictionary) -> void:
 	
 	animation_controller.animation_player.play(data["anim_name"])
 	animation_controller.animation_player.seek(data["anim_pos"], true)
+	
+	MatchManager.current_frame = data["current_frame"]
 	
 	stats.load_stats(data["stats"])
 	

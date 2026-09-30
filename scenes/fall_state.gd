@@ -6,7 +6,6 @@ extends State
 
 func enter(is_loading: bool = false) -> void:
 	clear_dash_state()
-	player.animation_controller.set_animation_speed(abs(player.animation_controller.current_anim_speed))
 
 	player.animation_controller.play_animation("fall")
 

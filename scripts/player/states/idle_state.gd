@@ -6,7 +6,7 @@ extends State
 @export var grounddash_state: State
 
 func enter(is_loading: bool = false) -> void:
-	player.animation_controller.set_animation_speed(abs(player.animation_controller.current_anim_speed))
+	clear_dash_state()
 	player.velocity.x = 0.0
 	player.animation_controller.play_animation("idle")
 

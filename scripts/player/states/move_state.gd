@@ -6,7 +6,6 @@ extends State
 @export var grounddash_state: State
 
 func enter(is_loading: bool = false) -> void:
-	player.animation_controller.set_animation_speed(abs(player.animation_controller.current_anim_speed))
 	player.animation_controller.play_animation("walk")
 
 func process_physics(delta: float):

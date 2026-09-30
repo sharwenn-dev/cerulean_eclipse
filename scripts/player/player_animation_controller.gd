@@ -16,6 +16,7 @@ extends Node
 
 func play_animation(anim_name: String) -> void:
 	if animation_player:
+		set_animation_speed(abs(current_anim_speed))
 		animation_player.play(anim_name)
 
 func set_animation_speed(anim_speed: float) -> void:
@@ -35,7 +36,6 @@ func set_facing_direction() -> void:
 		return
 	if state_machine.current_state.movement_locked:
 		return
-	
 	mouse_pos = owner.get_global_mouse_position()
 	if mouse_pos.x > owner.global_position.x:
 		body_sprite.flip_h = false

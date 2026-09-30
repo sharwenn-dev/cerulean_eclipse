@@ -649,8 +649,11 @@ follow_head = true
 [node name="Brake" type="Node" parent="StateMachine" unique_id=439013201]
 script = ExtResource("17_60mlk")
 
-[node name="GroundDash" type="Node" parent="StateMachine" unique_id=880567191]
+[node name="GroundDash" type="Node" parent="StateMachine" unique_id=880567191 node_paths=PackedStringArray("idle_state", "move_state", "jump_state")]
 script = ExtResource("17_4r5pv")
+idle_state = NodePath("../Idle")
+move_state = NodePath("../Walk")
+jump_state = NodePath("../Jump")
 
 [node name="AirDash" type="Node" parent="StateMachine" unique_id=1885537066]
 script = ExtResource("18_60mlk")
