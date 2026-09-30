@@ -22,7 +22,10 @@ func enter(is_loading: bool = false) -> void:
 
 func process_physics(delta: float) -> State:
 	if not stats.grounded:
-		player.velocity.y += stats.gravity * delta
+		if get_down():
+			player.velocity.y += (stats.gravity * 2) * delta
+		else:
+			player.velocity.y += stats.gravity * delta
 		if get_jump() and stats.jumps >= 1:
 			stats.jumps -= 1
 			return jump_state

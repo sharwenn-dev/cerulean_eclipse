@@ -45,3 +45,8 @@ func wants_jump() -> bool:
 	if skip_input_this_frame:
 		return false
 	return Input.is_action_just_pressed("up") # same with jump
+
+func wants_down() -> bool:
+	if skip_input_this_frame:
+		return false
+	return Input.is_action_pressed("down") # for fast fall and maybe other things later

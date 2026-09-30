@@ -34,5 +34,8 @@ func get_jump() -> bool:
 func get_ground_dash() -> float:
 	return move_component.wants_ground_dash()
 
+func get_down() -> bool:
+	return move_component.wants_down()
+
 func clear_dash_state() -> void:
 	move_component.clear_ground_dash()

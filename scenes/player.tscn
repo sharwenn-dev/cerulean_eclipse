@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://btahiywox6ody"]
 
-[ext_resource type="Script" uid="uid://blo0fks6b7nfn" path="res://player.gd" id="1_3vyb7"]
-[ext_resource type="Script" uid="uid://vi7a2plf4ivn" path="res://scripts/player/player_stats.gd" id="2_3v2ag"]
+[ext_resource type="Script" uid="uid://blo0fks6b7nfn" path="res://scripts/player/player.gd" id="1_l71n6"]
 [ext_resource type="Script" uid="uid://deapq8e0jy2u1" path="res://scripts/player/player_animation_controller.gd" id="2_dqkch"]
 [ext_resource type="Script" uid="uid://brqen7u465lqd" path="res://scripts/player/states/state_machine.gd" id="3_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://duot7b2fqvr5y" path="res://assets/gunidle_body.tres" id="3_ur7pv"]
@@ -19,16 +18,12 @@
 [ext_resource type="Texture2D" uid="uid://dtqgjfypj8udk" path="res://assets/gunguysprites/new/gundash_head.png" id="8_l71n6"]
 [ext_resource type="Texture2D" uid="uid://cl113b3ng6cg" path="res://assets/gunguysprites/new/newreticle.png" id="9_ur7pv"]
 [ext_resource type="Script" uid="uid://dcofi7sscsfqo" path="res://scripts/player/states/move_state.gd" id="9_y4r1p"]
-[ext_resource type="Script" uid="uid://duad6atp7pduy" path="res://scenes/jump_state.gd" id="15_a8ls1"]
-[ext_resource type="Script" uid="uid://dfgkrs2bfgx13" path="res://scenes/fall_state.gd" id="16_qfm1y"]
-[ext_resource type="Script" uid="uid://bupnclc64u60e" path="res://scenes/gdash_state.gd" id="17_4r5pv"]
-[ext_resource type="Script" uid="uid://dd28n7qaoobu7" path="res://scenes/brake_state.gd" id="17_60mlk"]
-[ext_resource type="Script" uid="uid://jnf2t8jdj8aj" path="res://scenes/adash_state.gd" id="18_60mlk"]
-[ext_resource type="Script" uid="uid://dsp57ajyc7hqg" path="res://scenes/player_input_component.gd" id="24_ke2ow"]
-
-[sub_resource type="Resource" id="Resource_v1tok"]
-script = ExtResource("2_3v2ag")
-metadata/_custom_type_script = "uid://vi7a2plf4ivn"
+[ext_resource type="Script" uid="uid://duad6atp7pduy" path="res://scripts/player/states/jump_state.gd" id="15_a8ls1"]
+[ext_resource type="Script" uid="uid://dfgkrs2bfgx13" path="res://scripts/player/states/fall_state.gd" id="16_qfm1y"]
+[ext_resource type="Script" uid="uid://bupnclc64u60e" path="res://scripts/player/states/gdash_state.gd" id="17_4r5pv"]
+[ext_resource type="Script" uid="uid://dd28n7qaoobu7" path="res://scripts/player/states/brake_state.gd" id="17_60mlk"]
+[ext_resource type="Script" uid="uid://jnf2t8jdj8aj" path="res://scripts/player/states/adash_state.gd" id="18_60mlk"]
+[ext_resource type="Script" uid="uid://dsp57ajyc7hqg" path="res://scripts/player_input_component.gd" id="24_ke2ow"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1g0qk"]
 radius = 24.0
@@ -585,8 +580,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" unique_id=161248642 groups=["players"]]
-script = ExtResource("1_3vyb7")
-stats = SubResource("Resource_v1tok")
+script = ExtResource("1_l71n6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1121891384]
 position = Vector2(0, 4)

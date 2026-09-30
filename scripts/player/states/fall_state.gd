@@ -10,18 +10,18 @@ func enter(is_loading: bool = false) -> void:
 	player.animation_controller.play_animation("fall")
 
 func process_physics(delta: float) -> State:
-	player.velocity.y += stats.gravity * delta
+	if get_down():
+		player.velocity.y += (stats.gravity * 2) * delta
+	else:
+		player.velocity.y += stats.gravity * delta
 
 	if get_jump() and stats.jumps >= 1:
 		stats.jumps -= 1
 		return jump_state
-
 	if stats.grounded:
 		stats.jumps = stats.max_jumps
-
 		if player.velocity.x != 0:
 			return walk_state
 		else:
 			return idle_state
-
 	return null

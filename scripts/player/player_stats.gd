@@ -16,6 +16,7 @@ extends Resource
 @export var dashes: int = 1
 
 @export var grounded = true
+@export var current_start_frame: int # saves the starting frame of the action active this frame
 
 # only includes things that can currently change
 func save_stats() -> Dictionary:
@@ -23,7 +24,8 @@ func save_stats() -> Dictionary:
 		"health": health,
 		"jumps": jumps,
 		"dashes": dashes,
-		"grounded": grounded
+		"grounded": grounded,
+		"start_frame": current_start_frame
 	}
 
 func load_stats(data: Dictionary) -> void:
@@ -31,3 +33,4 @@ func load_stats(data: Dictionary) -> void:
 	jumps = data["jumps"]
 	dashes = data["dashes"]
 	grounded = data["grounded"]
+	current_start_frame = data["start_frame"]
