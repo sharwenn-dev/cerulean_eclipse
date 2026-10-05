@@ -36,21 +36,16 @@ func set_facing_direction() -> void:
 		return
 	if state_machine.current_state.movement_locked:
 		return
-	mouse_pos = owner.get_global_mouse_position()
-	if mouse_pos.x > owner.global_position.x:
-		body_sprite.flip_h = false
-	elif mouse_pos.x < owner.global_position.x:
-		body_sprite.flip_h = true
+	
+	var is_left = mouse_pos < head_sprite.get_global_position()
+	body_sprite.flip_h = is_left
 
-# will refactor later for efficiency 
 func set_head_rotation() -> void:
 	head_sprite.rotation = reticle.rotation
-	if mouse_pos < head_sprite.get_global_position():
-		head_sprite.flip_v = true
-		head_sprite.offset.y = -head_offset
-	else:
-		head_sprite.flip_v = false
-		head_sprite.offset.y = head_offset
+	
+	var is_left = mouse_pos < head_sprite.get_global_position()
+	head_sprite.flip_v = is_left
+	head_sprite.offset.y = -head_offset if is_left else head_offset
 
 func rotate_reticle() -> void:
 	reticle.look_at(mouse_pos)

@@ -8,16 +8,11 @@ func enter(is_loading: bool = false) -> void:
 	if not is_loading:
 		player.velocity.y = stats.jump_force
 		var direction := get_movement_input()
-		if stats.grounded:
-			if direction == 0:
-				pass
-			elif direction * player.velocity.x <= 0: 
-				player.velocity.x = direction * stats.base_move_speed
-		elif not stats.grounded:
-			if direction == 0:
+		if direction == 0:
+			if not stats.grounded:
 				player.velocity.x = 0.0
-			elif direction * player.velocity.x <= 0:
-				player.velocity.x = direction * stats.base_move_speed
+		elif direction * player.velocity.x <= 0:
+			player.velocity.x = direction * stats.base_move_speed
 	player.animation_controller.play_animation("jump")
 
 func process_physics(delta: float) -> State:

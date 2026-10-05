@@ -5,6 +5,7 @@ extends State
 
 @export var idle_state: State
 @export var move_state: State
+@export var run_state: State
 @export var jump_state: State
 
 var direction: int
@@ -13,13 +14,10 @@ func enter(is_loading: bool = false) -> void:
 	if not is_loading:
 		direction = get_movement_input()
 		stats.current_start_frame = MatchManager.current_frame
-		#print(start_frame)
 		if direction != 0:
 			player.velocity.x = stats.dash_force * direction
-		if direction > 0:
-			player.animation_controller.body_sprite.flip_h = false
-		elif direction < 0:
-			player.animation_controller.body_sprite.flip_h = true
+		var flip = direction < 0
+		player.animation_controller.body_sprite.flip_h = flip
 	player.animation_controller.play_animation("dash")
 	movement_locked = true
 
@@ -28,6 +26,8 @@ func process_physics(_delta: float) -> State:
 		if get_jump():
 			return jump_state
 	if MatchManager.current_frame - stats.current_start_frame >= 30:
+		direction = get_movement_input()
+		if direction * player.velocity.x > 0:
+			return run_state
 		return idle_state
-	
 	return null

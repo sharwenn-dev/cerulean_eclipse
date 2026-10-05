@@ -2,7 +2,8 @@ class_name PlayerStats
 extends Resource
 
 @export var base_move_speed: float = 200.0
-@export var run_move_speed: float = 400.0
+@export var run_move_speed: float = 445.0
+@export var brake_limit: float = 450.0
 @export var gravity: float = 800.0
 @export var jump_force: float = -500.0
 @export var dash_force: float = 700.0
@@ -14,7 +15,6 @@ extends Resource
 @export var jumps: int = 2
 @export var max_dashes: int = 1
 @export var dashes: int = 1
-
 @export var grounded = true
 @export var current_start_frame: int # saves the starting frame of the action active this frame
 

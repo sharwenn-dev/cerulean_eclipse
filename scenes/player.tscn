@@ -18,12 +18,15 @@
 [ext_resource type="Texture2D" uid="uid://dtqgjfypj8udk" path="res://assets/gunguysprites/new/gundash_head.png" id="8_l71n6"]
 [ext_resource type="Texture2D" uid="uid://cl113b3ng6cg" path="res://assets/gunguysprites/new/newreticle.png" id="9_ur7pv"]
 [ext_resource type="Script" uid="uid://dcofi7sscsfqo" path="res://scripts/player/states/move_state.gd" id="9_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://i5dh3jnwclpe" path="res://assets/gunguysprites/new/gunrun_body.png" id="12_ke2ow"]
+[ext_resource type="Texture2D" uid="uid://dwo050xhup86p" path="res://assets/gunguysprites/new/gunrun_head.png" id="13_ujl30"]
 [ext_resource type="Script" uid="uid://duad6atp7pduy" path="res://scripts/player/states/jump_state.gd" id="15_a8ls1"]
 [ext_resource type="Script" uid="uid://dfgkrs2bfgx13" path="res://scripts/player/states/fall_state.gd" id="16_qfm1y"]
 [ext_resource type="Script" uid="uid://bupnclc64u60e" path="res://scripts/player/states/gdash_state.gd" id="17_4r5pv"]
 [ext_resource type="Script" uid="uid://dd28n7qaoobu7" path="res://scripts/player/states/brake_state.gd" id="17_60mlk"]
 [ext_resource type="Script" uid="uid://jnf2t8jdj8aj" path="res://scripts/player/states/adash_state.gd" id="18_60mlk"]
 [ext_resource type="Script" uid="uid://dsp57ajyc7hqg" path="res://scripts/player_input_component.gd" id="24_ke2ow"]
+[ext_resource type="Script" uid="uid://byj8riy20e13" path="res://scripts/player/states/run_state.gd" id="25_31cv2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1g0qk"]
 radius = 24.0
@@ -490,6 +493,84 @@ tracks/5/keys = {
 "values": [0, 1, 2, 3]
 }
 
+[sub_resource type="Animation" id="Animation_ke2ow"]
+resource_name = "run"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("12_ke2ow")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Head:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("13_ujl30")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Head:hframes")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Head:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.39999998, 0.49999997),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
 [sub_resource type="Animation" id="Animation_jej6c"]
 resource_name = "walk"
 length = 0.4
@@ -576,6 +657,7 @@ _data = {
 &"fall": SubResource("Animation_oprun"),
 &"idle": SubResource("Animation_3v2ag"),
 &"jump": SubResource("Animation_f1ej7"),
+&"run": SubResource("Animation_ke2ow"),
 &"walk": SubResource("Animation_jej6c")
 }
 
@@ -633,24 +715,41 @@ idle_state = NodePath("../Idle")
 jump_state = NodePath(".")
 follow_head = true
 
-[node name="Fall" type="Node" parent="StateMachine" unique_id=260021624 node_paths=PackedStringArray("idle_state", "walk_state", "jump_state")]
+[node name="Fall" type="Node" parent="StateMachine" unique_id=260021624 node_paths=PackedStringArray("idle_state", "walk_state", "run_state", "jump_state", "brake_state")]
 script = ExtResource("16_qfm1y")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
+run_state = NodePath("../Run")
 jump_state = NodePath("../Jump")
+brake_state = NodePath("../Brake")
 follow_head = true
 
-[node name="Brake" type="Node" parent="StateMachine" unique_id=439013201]
+[node name="Brake" type="Node" parent="StateMachine" unique_id=439013201 node_paths=PackedStringArray("idle_state", "jump_state", "fall_state", "run_state", "walk_state", "grounddash_state")]
 script = ExtResource("17_60mlk")
+idle_state = NodePath("../Idle")
+jump_state = NodePath("../Jump")
+fall_state = NodePath("../Fall")
+run_state = NodePath("../Run")
+walk_state = NodePath("../Walk")
+grounddash_state = NodePath("../GroundDash")
 
-[node name="GroundDash" type="Node" parent="StateMachine" unique_id=880567191 node_paths=PackedStringArray("idle_state", "move_state", "jump_state")]
+[node name="GroundDash" type="Node" parent="StateMachine" unique_id=880567191 node_paths=PackedStringArray("idle_state", "move_state", "run_state", "jump_state")]
 script = ExtResource("17_4r5pv")
 idle_state = NodePath("../Idle")
 move_state = NodePath("../Walk")
+run_state = NodePath("../Run")
 jump_state = NodePath("../Jump")
 
 [node name="AirDash" type="Node" parent="StateMachine" unique_id=1885537066]
 script = ExtResource("18_60mlk")
+
+[node name="Run" type="Node" parent="StateMachine" unique_id=2086957224 node_paths=PackedStringArray("idle_state", "fall_state", "jump_state", "grounddash_state")]
+script = ExtResource("25_31cv2")
+idle_state = NodePath("../Idle")
+fall_state = NodePath("../Fall")
+jump_state = NodePath("../Jump")
+grounddash_state = NodePath("../GroundDash")
+movement_locked = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=982390416]
 
