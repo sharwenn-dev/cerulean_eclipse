@@ -662,6 +662,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D" unique_id=161248642 groups=["players"]]
+collision_layer = 2
 script = ExtResource("1_l71n6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1121891384]
@@ -752,6 +753,9 @@ grounddash_state = NodePath("../GroundDash")
 movement_locked = true
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=982390416]
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 
 [node name="AimHandler" type="Node2D" parent="." unique_id=1041828155]
 position = Vector2(3.5, -2)

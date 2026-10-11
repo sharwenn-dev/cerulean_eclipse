@@ -1,23 +1,61 @@
 [gd_scene format=3 uid="uid://dsalgtanwrh1c"]
 
+[ext_resource type="Texture2D" uid="uid://bmiq4pte4nq42" path="res://assets/backgroundsprites/output-Foliage- (Foliage).png" id="1_dir8h"]
+[ext_resource type="Texture2D" uid="uid://b4qpv1wicpo4t" path="res://assets/backgroundsprites/output-Crosses- (Crosses).png" id="2_7dfyu"]
+[ext_resource type="Texture2D" uid="uid://d1pwntsugtgup" path="res://assets/backgroundsprites/output-Clouds- (Clouds).png" id="2_82wqq"]
+[ext_resource type="Texture2D" uid="uid://b1wyqxu0enppd" path="res://assets/backgroundsprites/output-Tree- (Tree).png" id="2_dir8h"]
+[ext_resource type="Texture2D" uid="uid://cuemomxt4h4l2" path="res://assets/backgroundsprites/output-Background- (Background).png" id="3_7dfyu"]
+[ext_resource type="Texture2D" uid="uid://yljdbkvce7d3" path="res://assets/backgroundsprites/output-EclipseBack- (EclipseBack).png" id="5_lo85r"]
+[ext_resource type="Texture2D" uid="uid://bl01ap47wdhpt" path="res://assets/backgroundsprites/output-EclipseFront- (EclipseFront).png" id="6_82wqq"]
+[ext_resource type="Texture2D" uid="uid://b1ub667opyumo" path="res://assets/backgroundsprites/output-EclipseHaze- (EclipseHaze).png" id="7_7jfso"]
+[ext_resource type="Texture2D" uid="uid://duot7b2fqvr5y" path="res://assets/gunidle_body.tres" id="9_7jfso"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ac6k"]
-size = Vector2(3205.5, 20)
+size = Vector2(6175.5, 37)
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_lfhdc"]
 specular_color = Color(0, 0, 0, 1)
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ujl30"]
+
+[sub_resource type="Sky" id="Sky_ke2ow"]
+sky_material = SubResource("ProceduralSkyMaterial_ujl30")
+
+[sub_resource type="Environment" id="Environment_5ac6k"]
+background_mode = 1
+background_color = Color(4.813075e-07, 0.6757623, 0.66380095, 1)
+background_energy_multiplier = 16.0
+sky = SubResource("Sky_ke2ow")
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 4.2
+reflected_light_source = 2
+glow_enabled = true
+glow_intensity = 8.0
+glow_strength = 2.0
+glow_bloom = 1.0
+glow_hdr_threshold = 0.55
+glow_hdr_scale = 4.0
+glow_hdr_luminance_cap = 73.4
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5ac6k"]
+radius = 23.0
+height = 102.0
+
 [node name="map1" type="Node2D" unique_id=480315478]
+position = Vector2(106, 450)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1324818799]
 position = Vector2(-115.869446, 95.25432)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1058507053]
-position = Vector2(783.11945, 111.74568)
+position = Vector2(2003.8694, 115.74567)
 shape = SubResource("RectangleShape2D_5ac6k")
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D/CollisionShape2D" unique_id=1446284152]
-position = Vector2(-2.750183, -1.6271595)
-scale = Vector2(3179.0002, 17.254313)
+modulate = Color(0.033571217, 0.0525641, 0.04667023, 1)
+z_index = 36
+position = Vector2(-753.3752, 1224.8036)
+scale = Vector2(4665.25, 2485.6072)
 texture = SubResource("CanvasTexture_lfhdc")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=847073879]
@@ -55,3 +93,108 @@ position = Vector2(-202.99988, 236.00002)
 rotation = 3.1415927
 scale = Vector2(33.32758, -52.128643)
 texture = SubResource("CanvasTexture_lfhdc")
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=1627589680]
+modulate = Color(0.27095178, 0.27385065, 0.2817984, 1)
+z_index = 5
+scroll_scale = Vector2(0.9, 0)
+repeat_size = Vector2(1920, 1080)
+repeat_times = 2
+follow_viewport = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1465946593]
+position = Vector2(764.70996, -237.76659)
+scale = Vector2(0.73884386, 0.81524706)
+texture = ExtResource("1_dir8h")
+
+[node name="Parallax2D6" type="Parallax2D" parent="." unique_id=1485707145]
+modulate = Color(0.27095178, 0.27385065, 0.2817984, 1)
+z_index = 5
+scroll_scale = Vector2(0.9, 0)
+scroll_offset = Vector2(-1806, -752)
+repeat_size = Vector2(1920, 1080)
+autoscroll = Vector2(-100, 0)
+repeat_times = 5
+follow_viewport = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D6" unique_id=535259656]
+position = Vector2(764.70996, -237.76659)
+scale = Vector2(0.73884386, 0.81524706)
+texture = ExtResource("2_82wqq")
+
+[node name="Parallax2D4" type="Parallax2D" parent="." unique_id=2142337657]
+modulate = Color(0.27095178, 0.27385065, 0.2817984, 1)
+z_index = 5
+scroll_scale = Vector2(0.9, 0)
+repeat_size = Vector2(1920, 1080)
+repeat_times = 2
+follow_viewport = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D4" unique_id=174788520]
+position = Vector2(931.7099, -221.76662)
+scale = Vector2(0.91280216, 0.7856174)
+texture = ExtResource("2_7dfyu")
+
+[node name="Parallax2D2" type="Parallax2D" parent="." unique_id=1687222909]
+scroll_scale = Vector2(0.6, 0.9)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D2" unique_id=556121138]
+z_index = -39
+position = Vector2(222.24994, -330.87494)
+scale = Vector2(1.0023437, 1.1483797)
+texture = ExtResource("2_dir8h")
+
+[node name="Parallax2D3" type="Parallax2D" parent="." unique_id=734796631]
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D3" unique_id=977842583]
+z_index = -50
+position = Vector2(1103, -998.875)
+scale = Vector2(2.4645834, 2.244676)
+texture = ExtResource("3_7dfyu")
+region_enabled = true
+region_rect = Rect2(0, 0, 1920, 1080)
+
+[node name="Parallax2D5" type="Parallax2D" parent="." unique_id=712745744]
+scroll_scale = Vector2(0.2, 0.2)
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D5" unique_id=444581626]
+modulate = Color(0, 17.39554, 18.892157, 1)
+z_index = -41
+position = Vector2(336.18494, -72.96164)
+scale = Vector2(0.79706764, 0.81858957)
+texture = ExtResource("5_lo85r")
+region_enabled = true
+region_rect = Rect2(0, 0, 1920, 1080)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Parallax2D5" unique_id=1141558703]
+z_index = -41
+position = Vector2(336.18494, -72.96164)
+scale = Vector2(0.79706764, 0.81858957)
+texture = ExtResource("6_82wqq")
+region_enabled = true
+region_rect = Rect2(0, 0, 1920, 1080)
+
+[node name="Sprite2D3" type="Sprite2D" parent="Parallax2D5" unique_id=711534664]
+modulate = Color(18.892157, 18.892157, 18.892157, 1)
+z_index = -42
+position = Vector2(336.18494, -72.96164)
+scale = Vector2(0.79706764, 0.81858957)
+texture = ExtResource("7_7jfso")
+region_enabled = true
+region_rect = Rect2(0, 0, 1920, 1080)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=601092904]
+environment = SubResource("Environment_5ac6k")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=358652879]
+position = Vector2(5, 123)
+collision_layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D" unique_id=855380362]
+texture = ExtResource("9_7jfso")
+hframes = 2
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=139741789]
+position = Vector2(1, 8)
+shape = SubResource("CapsuleShape2D_5ac6k")
