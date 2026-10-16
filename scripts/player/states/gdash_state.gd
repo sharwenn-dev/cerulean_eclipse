@@ -15,7 +15,12 @@ func enter(is_loading: bool = false) -> void:
 		direction = get_movement_input()
 		stats.current_start_frame = MatchManager.current_frame
 		if direction != 0:
-			player.velocity.x = stats.dash_force * direction
+			var base_dash = direction * stats.dash_force
+			var current_x_speed = player.velocity.x
+			if sign(current_x_speed) == direction and abs(current_x_speed) > stats.run_move_speed:
+				player.velocity.x = base_dash + (current_x_speed * 0.4) # 40% carryover
+			else:
+				player.velocity.x = base_dash
 		var flip = direction < 0
 		player.animation_controller.body_sprite.flip_h = flip
 	player.animation_controller.play_animation("dash")

@@ -18,15 +18,23 @@
 [ext_resource type="Texture2D" uid="uid://dtqgjfypj8udk" path="res://assets/gunguysprites/new/gundash_head.png" id="8_l71n6"]
 [ext_resource type="Texture2D" uid="uid://cl113b3ng6cg" path="res://assets/gunguysprites/new/newreticle.png" id="9_ur7pv"]
 [ext_resource type="Script" uid="uid://dcofi7sscsfqo" path="res://scripts/player/states/move_state.gd" id="9_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://borbvs6csb2ht" path="res://assets/gunguysprites/new/gunflyforward_body.png" id="10_gl8cc"]
+[ext_resource type="Texture2D" uid="uid://dy46t5mjka1mi" path="res://assets/gunguysprites/new/gunflyback_body.png" id="10_md1ol"]
+[ext_resource type="Texture2D" uid="uid://bd554muujh1sy" path="res://assets/gunguysprites/new/gunflyforward_head.png" id="11_487ah"]
+[ext_resource type="Texture2D" uid="uid://bw7lnoecwccg3" path="res://assets/gunguysprites/new/gunflyback_head.png" id="11_bj30b"]
+[ext_resource type="Texture2D" uid="uid://bfpymrkxsm2q3" path="res://assets/gunguysprites/new/gunflydash_head.png" id="12_bj30b"]
 [ext_resource type="Texture2D" uid="uid://i5dh3jnwclpe" path="res://assets/gunguysprites/new/gunrun_body.png" id="12_ke2ow"]
 [ext_resource type="Texture2D" uid="uid://dwo050xhup86p" path="res://assets/gunguysprites/new/gunrun_head.png" id="13_ujl30"]
+[ext_resource type="Texture2D" uid="uid://c2xbbtnjfpeg1" path="res://assets/gunguysprites/new/gunflyslow_body.png" id="14_dt7fs"]
 [ext_resource type="Script" uid="uid://duad6atp7pduy" path="res://scripts/player/states/jump_state.gd" id="15_a8ls1"]
+[ext_resource type="Texture2D" uid="uid://coaa8t5mf7uvj" path="res://assets/gunguysprites/new/gunflyslow_head.png" id="15_wqfne"]
 [ext_resource type="Script" uid="uid://dfgkrs2bfgx13" path="res://scripts/player/states/fall_state.gd" id="16_qfm1y"]
 [ext_resource type="Script" uid="uid://bupnclc64u60e" path="res://scripts/player/states/gdash_state.gd" id="17_4r5pv"]
 [ext_resource type="Script" uid="uid://dd28n7qaoobu7" path="res://scripts/player/states/brake_state.gd" id="17_60mlk"]
 [ext_resource type="Script" uid="uid://jnf2t8jdj8aj" path="res://scripts/player/states/adash_state.gd" id="18_60mlk"]
 [ext_resource type="Script" uid="uid://dsp57ajyc7hqg" path="res://scripts/player_input_component.gd" id="24_ke2ow"]
 [ext_resource type="Script" uid="uid://byj8riy20e13" path="res://scripts/player/states/run_state.gd" id="25_31cv2"]
+[ext_resource type="Script" uid="uid://k6g6vuhtpfir" path="res://scripts/player/states/flight_state.gd" id="26_pf23h"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1g0qk"]
 radius = 24.0
@@ -338,6 +346,237 @@ tracks/5/keys = {
 "values": [0, 1, 2, 3, 4]
 }
 
+[sub_resource type="Animation" id="Animation_jc3p3"]
+resource_name = "flybackward"
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("10_md1ol")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Head:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("11_bj30b")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Head:hframes")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Head:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_bj30b"]
+resource_name = "flydash"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_4ni07")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Head:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("12_bj30b")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Head:hframes")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [6]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Body:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.2, 0.4, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Head:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.15, 0.2, 0.4, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_md1ol"]
+resource_name = "flyforward"
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("10_gl8cc")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Head:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("11_487ah")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Head:hframes")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Head:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
 [sub_resource type="Animation" id="Animation_3v2ag"]
 resource_name = "idle"
 length = 3.0000000000000004
@@ -571,6 +810,84 @@ tracks/5/keys = {
 "values": [0, 1, 2, 3, 4, 5]
 }
 
+[sub_resource type="Animation" id="Animation_wqfne"]
+resource_name = "slowflight"
+length = 2.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("14_dt7fs")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Head:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("15_wqfne")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Head:hframes")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Head:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
 [sub_resource type="Animation" id="Animation_jej6c"]
 resource_name = "walk"
 length = 0.4
@@ -655,9 +972,13 @@ _data = {
 &"brake": SubResource("Animation_a38lo"),
 &"dash": SubResource("Animation_l71n6"),
 &"fall": SubResource("Animation_oprun"),
+&"flybackward": SubResource("Animation_jc3p3"),
+&"flydash": SubResource("Animation_bj30b"),
+&"flyforward": SubResource("Animation_md1ol"),
 &"idle": SubResource("Animation_3v2ag"),
 &"jump": SubResource("Animation_f1ej7"),
 &"run": SubResource("Animation_ke2ow"),
+&"slowflight": SubResource("Animation_wqfne"),
 &"walk": SubResource("Animation_jej6c")
 }
 
@@ -709,20 +1030,24 @@ grounddash_state = NodePath("../GroundDash")
 reverse_while_backwards = true
 follow_head = true
 
-[node name="Jump" type="Node" parent="StateMachine" unique_id=1803874314 node_paths=PackedStringArray("fall_state", "idle_state", "jump_state")]
+[node name="Jump" type="Node" parent="StateMachine" unique_id=1803874314 node_paths=PackedStringArray("fall_state", "idle_state", "jump_state", "adash_state", "flight_state")]
 script = ExtResource("15_a8ls1")
 fall_state = NodePath("../Fall")
 idle_state = NodePath("../Idle")
 jump_state = NodePath(".")
+adash_state = NodePath("../AirDash")
+flight_state = NodePath("../Flight")
 follow_head = true
 
-[node name="Fall" type="Node" parent="StateMachine" unique_id=260021624 node_paths=PackedStringArray("idle_state", "walk_state", "run_state", "jump_state", "brake_state")]
+[node name="Fall" type="Node" parent="StateMachine" unique_id=260021624 node_paths=PackedStringArray("idle_state", "walk_state", "run_state", "jump_state", "brake_state", "adash_state", "flight_state")]
 script = ExtResource("16_qfm1y")
 idle_state = NodePath("../Idle")
 walk_state = NodePath("../Walk")
 run_state = NodePath("../Run")
 jump_state = NodePath("../Jump")
 brake_state = NodePath("../Brake")
+adash_state = NodePath("../AirDash")
+flight_state = NodePath("../Flight")
 follow_head = true
 
 [node name="Brake" type="Node" parent="StateMachine" unique_id=439013201 node_paths=PackedStringArray("idle_state", "jump_state", "fall_state", "run_state", "walk_state", "grounddash_state")]
@@ -741,8 +1066,14 @@ move_state = NodePath("../Walk")
 run_state = NodePath("../Run")
 jump_state = NodePath("../Jump")
 
-[node name="AirDash" type="Node" parent="StateMachine" unique_id=1885537066]
+[node name="AirDash" type="Node" parent="StateMachine" unique_id=1885537066 node_paths=PackedStringArray("falling_state", "idle_state", "run_state", "walk_state", "brake_state", "flight_state")]
 script = ExtResource("18_60mlk")
+falling_state = NodePath("../Fall")
+idle_state = NodePath("../Idle")
+run_state = NodePath("../Run")
+walk_state = NodePath("../Walk")
+brake_state = NodePath("../Brake")
+flight_state = NodePath("../Flight")
 
 [node name="Run" type="Node" parent="StateMachine" unique_id=2086957224 node_paths=PackedStringArray("idle_state", "fall_state", "jump_state", "grounddash_state")]
 script = ExtResource("25_31cv2")
@@ -751,6 +1082,16 @@ fall_state = NodePath("../Fall")
 jump_state = NodePath("../Jump")
 grounddash_state = NodePath("../GroundDash")
 movement_locked = true
+
+[node name="Flight" type="Node" parent="StateMachine" unique_id=1703639665 node_paths=PackedStringArray("adash_state", "falling_state", "idle_state", "run_state", "walk_state", "brake_state")]
+script = ExtResource("26_pf23h")
+adash_state = NodePath("../AirDash")
+falling_state = NodePath("../Fall")
+idle_state = NodePath("../Idle")
+run_state = NodePath("../Run")
+walk_state = NodePath("../Walk")
+brake_state = NodePath("../Brake")
+metadata/_custom_type_script = "uid://bicnqsk8eac3g"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=982390416]
 process_callback = 0

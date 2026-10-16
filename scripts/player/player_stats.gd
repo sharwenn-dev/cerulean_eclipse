@@ -1,6 +1,19 @@
 class_name PlayerStats
 extends Resource
 
+# resources
+@export var health: float = 100.0
+@export var fp: int = 100
+
+# amount in the air
+@export var max_jumps: int = 2
+@export var jumps: int = 2
+@export var max_dashes: int = 2
+@export var dashes: int = 2
+@export var grounded = true
+@export var flying = false
+@export var current_start_frame: int # saves the starting frame of the action active this frame
+
 @export var base_move_speed: float = 200.0
 @export var run_move_speed: float = 445.0
 @export var brake_limit: float = 450.0
@@ -8,15 +21,11 @@ extends Resource
 @export var jump_force: float = -500.0
 @export var dash_force: float = 700.0
 @export var friction: float = 100.0
-@export var health: float = 100.0
 
-# amount in the air
-@export var max_jumps: int = 2
-@export var jumps: int = 2
-@export var max_dashes: int = 1
-@export var dashes: int = 1
-@export var grounded = true
-@export var current_start_frame: int # saves the starting frame of the action active this frame
+@export var flight_acceleration: float = 700.0
+@export var air_friction: float = 200.0
+@export var base_flight_speed: float = 600.0
+
 
 # only includes things that can currently change
 func save_stats() -> Dictionary:

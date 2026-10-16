@@ -8,6 +8,9 @@ var last_left_press := -9999
 var last_right_press := -9999
 var gdash_dir := 0.0
 
+var adash_dir := Vector2.ZERO
+var last_facing_dir := 1.0
+
 var skip_input_this_frame: bool = false
 
 func _physics_process(delta: float) -> void:
@@ -22,8 +25,22 @@ func _physics_process(delta: float) -> void:
 			gdash_dir = 1.0
 		last_right_press = current_frame
 
+	var move_axis = Input.get_axis("left", "right")
+	if move_axis != 0:
+		last_facing_dir = sign(move_axis)
+	
+	if Input.is_action_just_pressed("dash"):
+		var input_vector = Input.get_vector("left", "right", "up", "down")
+		if input_vector == Vector2.ZERO:
+			adash_dir = Vector2(last_facing_dir, 0.0)
+		else:
+			adash_dir = input_vector.normalized()
+
 func clear_ground_dash() -> void:
 	gdash_dir = 0.0
+
+func clear_air_dash() -> void:
+	adash_dir = Vector2.ZERO
 
 func skip_next_frame() -> void:
 	skip_input_this_frame = true
@@ -36,6 +53,18 @@ func wants_ground_dash() -> float:
 	gdash_dir = 0.0
 	return direction
 
+func wants_air_dash() -> Vector2:
+	if skip_input_this_frame:
+		return Vector2.ZERO
+	var direction = adash_dir
+	return direction
+
+func find_movement_vector() -> Vector2:
+	if skip_input_this_frame:
+		return Vector2.ZERO
+	var move_vector = Input.get_vector("left", "right", "up", "down")
+	return move_vector
+
 func get_movement_direction() -> float:
 	if skip_input_this_frame:
 		return 0.0
@@ -45,6 +74,11 @@ func wants_jump() -> bool:
 	if skip_input_this_frame:
 		return false
 	return Input.is_action_just_pressed("up") # same with jump
+
+func wants_flight() -> bool:
+	if skip_input_this_frame:
+		return false
+	return Input.is_action_just_pressed("fly")
 
 func wants_down() -> bool:
 	if skip_input_this_frame:

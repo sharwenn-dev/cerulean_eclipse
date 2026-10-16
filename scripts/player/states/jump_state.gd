@@ -3,8 +3,11 @@ extends State
 @export var fall_state: State
 @export var idle_state: State
 @export var jump_state: State
+@export var adash_state: State
+@export var flight_state: State
 
 func enter(is_loading: bool = false) -> void:
+	clear_dash_state()
 	if not is_loading:
 		player.velocity.y = stats.jump_force
 		var direction := get_movement_input()
@@ -21,6 +24,14 @@ func process_physics(delta: float) -> State:
 			player.velocity.y += (stats.gravity * 2) * delta
 		else:
 			player.velocity.y += stats.gravity * delta
+	
+		if get_flight() and stats.fp > 0:
+			return flight_state
+	
+		if get_air_dash() != Vector2.ZERO and stats.dashes >= 1:
+			stats.dashes -= 1
+			return adash_state
+	
 		if get_jump() and stats.jumps >= 1:
 			stats.jumps -= 1
 			return jump_state
